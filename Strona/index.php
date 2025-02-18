@@ -16,8 +16,6 @@
         <h1>Alekino!</h1>
         <nav>
             <ul>
-                <li><a href="index.php">Repertuar</a></li>
-                <li><a href="kontakt.php">Kontakt</a></li>
                 <li><a href="rezerwacje.php">Moje Rezerwacje</a></li>
             </ul>
         </nav>

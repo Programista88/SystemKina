@@ -153,4 +153,52 @@ footer {
 .movie img:hover {
     transform: scale(1.05);
 }
+.movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.movie {
+    flex: 0 1 calc(20% - 30px);
+    min-width: 250px;
+    max-width: 300px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.movie:hover {
+    transform: translateY(-5px);
+}
+
+@media (max-width: 1500px) {
+    .movie {
+        flex: 0 1 calc(25% - 30px);
+    }
+}
+
+@media (max-width: 1200px) {
+    .movie {
+        flex: 0 1 calc(33.333% - 30px);
+    }
+}
+
+@media (max-width: 900px) {
+    .movie {
+        flex: 0 1 calc(50% - 30px);
+    }
+}
+
+@media (max-width: 600px) {
+    .movie {
+        flex: 0 1 100%;
+    }
+}
 
