@@ -22,6 +22,8 @@
             <ul>
                 <li><a href="index.php">Strona Główna</a></li>
                 <li><a href="rezerwacje.php">Moje Rezerwacje</a></li>
+                <li><a href="rejestracja.php">Rejestracja</a></li>
+                <li><a href="login.php">Logowanie</a></li>
             </ul>
         </nav>
     </header>
