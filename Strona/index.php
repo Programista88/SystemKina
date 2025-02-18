@@ -8,18 +8,24 @@
     <title>Kino - Rezerwacja Biletów - Filmy 3D</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
 
 </head>
 
 <body>
     <header>
-        <h1>Alekino!</h1>
+        <div class="logo-container">
+            <img src="zdjecia/logo/logo.png" alt="Alekino Logo">
+            <h1>Alekino!</h1>
+        </div>
         <nav>
             <ul>
+                <li><a href="index.php">Strona Główna</a></li>
                 <li><a href="rezerwacje.php">Moje Rezerwacje</a></li>
             </ul>
         </nav>
     </header>
+
 
     <main>
         <h2>Aktualne Filmy</h2>
@@ -31,7 +37,7 @@
                 echo '<img src="zdjecia/filmy/film_' . htmlspecialchars(string: $film['film_id']) . '.jpg" alt="' . htmlspecialchars(string: $film['tytul']) . '">';
                 echo '<h3>' . htmlspecialchars(string: $film['tytul']) . '</h3>';
                 echo '<p>' . htmlspecialchars(string: $film['opis']) . '</p>';
-                echo '<button onclick="reserveTicket(' . $film['film_id'] . ')">Rezerwuj</button>';
+                echo '<button onclick="reserveTicket(' . $film['film_id'] . ')">Kup Bilet</button>';
                 echo '</div>';
             }
             ?>
