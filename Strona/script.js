@@ -1,5 +1,5 @@
 function reserveTicket(filmId) {
-    fetch('reserve.php', {
+    fetch('rezerwacje.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -10,12 +10,18 @@ function reserveTicket(filmId) {
     .then(data => {
         if (data.success) {
             alert('Rezerwacja została przyjęta!');
+            window.location.href = 'rezerwacje.php';
         } else {
-            alert('Wystąpił błąd podczas rezerwacji.');
+            alert(data.message || 'Wystąpił błąd podczas rezerwacji.');
         }
     })
     .catch(error => {
         console.error('Błąd:', error);
         alert('Wystąpił błąd podczas rezerwacji.');
     });
+}
+
+
+function isUserLoggedIn() {
+    return document.body.classList.contains('user-logged-in');
 }

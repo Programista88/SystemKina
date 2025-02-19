@@ -589,3 +589,59 @@ footer {
 .register-link a:hover {
     text-decoration: underline;
 }
+
+.reservations-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.reservation-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.reservation-card:hover {
+    transform: translateY(-2px);
+}
+
+.no-reservations {
+    text-align: center;
+    color: #666;
+    padding: 40px;
+}
+
+.btn-login {
+    display: inline-block;
+    background: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.btn-login:hover {
+    background: #0056b3;
+}
+
+.reserve-btn {
+    display: inline-block;
+    background: #007BFF;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.reserve-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}

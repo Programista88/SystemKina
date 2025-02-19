@@ -1,7 +1,9 @@
-<?php require_once 'config.php'; ?>
+<?php
+session_start();
+require_once 'config.php'; ?>
 <?php if (isset($_SESSION['message'])): ?>
     <div class="message <?php echo $_SESSION['message_type']; ?>">
-        <?php 
+        <?php
         echo $_SESSION['message'];
         unset($_SESSION['message']);
         unset($_SESSION['message_type']);
@@ -31,9 +33,10 @@
         <nav>
             <ul>
                 <li><a href="index.php">Strona główna</a></li>
+                <li><a href="rezerwacje.php">Moje Rezerwacje</a></li>
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <li><a href="konto.php">Konto</a></li>
-                    <li><a href="logout.php" class="logout-btn">Wyloguj</a></li>
+                    <li><a href="wylogowanie.php" class="logout-btn">Wyloguj</a></li>
                 <?php else: ?>
                     <li><a href="login.php">Konto/Logowanie</a></li>
                     <li><a href="rejestracja.php">Rejestracja</a></li>
@@ -48,16 +51,21 @@
         <div class="movies">
             <?php
             $stmt = $db->query("SELECT * FROM filmy WHERE data_premiery <= CURRENT_DATE ORDER BY data_premiery DESC");
-            while ($film = $stmt->fetch(mode: PDO::FETCH_ASSOC)) {
+            while ($film = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo '<div class="movie">';
-                echo '<img src="zdjecia/filmy/film_' . htmlspecialchars(string: $film['film_id']) . '.jpg" alt="' . htmlspecialchars(string: $film['tytul']) . '">';
-                echo '<h3>' . htmlspecialchars(string: $film['tytul']) . '</h3>';
-                echo '<p>' . htmlspecialchars(string: $film['opis']) . '</p>';
-                echo '<button onclick="reserveTicket(' . $film['film_id'] . ')">Kup Bilet</button>';
+                echo '<img src="zdjecia/filmy/film_' . htmlspecialchars($film['film_id']) . '.jpg" alt="' . htmlspecialchars($film['tytul']) . '">';
+                echo '<h3>' . htmlspecialchars($film['tytul']) . '</h3>';
+                echo '<p>' . htmlspecialchars($film['opis']) . '</p>';
+                if (isset($_SESSION['user_id'])) {
+                    echo '<button onclick="reserveTicket(' . $film['film_id'] . ')" class="reserve-btn">Zarezerwuj bilet</button>';
+                } else {
+                    echo '<a href="login.php" class="btn-login">Zaloguj się aby zarezerwować</a>';
+                }
                 echo '</div>';
             }
             ?>
         </div>
+
     </main>
 
     <footer>
