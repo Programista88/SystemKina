@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imie = trim($_POST['imie']);
@@ -16,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $db->prepare("INSERT INTO klienci (imie, nazwisko, email, telefon) VALUES (?, ?, ?, ?)");
         try {
             $stmt->execute([$imie, $nazwisko, $email, $telefon]);
-            header('Location: login.php?registered=true');
+            $_SESSION['registration_success'] = true;
+            header('Location: login.php');
             exit();
         } catch(PDOException $e) {
             $error = "Błąd podczas rejestracji";
@@ -24,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 
 <!DOCTYPE html>

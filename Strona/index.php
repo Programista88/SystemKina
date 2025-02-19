@@ -21,13 +21,9 @@
         <nav>
             <ul>
                 <li><a href="index.php">Strona główna</a></li>
-                <li><a href="rezerwacje.php">Moje Rezerwacje</a></li>
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <li class="user-menu">
-                        <span>Witaj, <?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
-                        <a href="account.php">Moje Konto</a>
-                        <a href="logout.php" class="logout-btn">Wyloguj</a>
-                    </li>
+                    <li><a href="konto.php">Konto</a></li>
+                    <li><a href="logout.php" class="logout-btn">Wyloguj</a></li>
                 <?php else: ?>
                     <li><a href="login.php">Logowanie</a></li>
                     <li><a href="rejestracja.php">Rejestracja</a></li>

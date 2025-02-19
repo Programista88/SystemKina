@@ -1,31 +1,31 @@
 <?php
 require_once 'config.php';
-
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    header(header: 'Location: index.php');
+    header('Location: konto.php');
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim(string: $_POST['email']);
-    $telefon = trim(string: $_POST['telefon']);
+    $email = trim($_POST['email']);
+    $telefon = trim($_POST['telefon']);
     
-    $stmt = $db->prepare(query: "SELECT klient_id, imie, nazwisko FROM klienci WHERE email = ? AND telefon = ?");
-    $stmt->execute(params: [$email, $telefon]);
-    $user = $stmt->fetch(mode: PDO::FETCH_ASSOC);
+    $stmt = $db->prepare("SELECT klient_id, imie, nazwisko FROM klienci WHERE email = ? AND telefon = ?");
+    $stmt->execute([$email, $telefon]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if ($user) {
         $_SESSION['user_id'] = $user['klient_id'];
         $_SESSION['user_name'] = $user['imie'] . ' ' . $user['nazwisko'];
-        header(header: 'Location: index.php');
+        header('Location: konto.php');
         exit();
     } else {
         $error = "Nieprawidłowy email lub telefon";
     }
 }
 ?>
+
 
 
 <!DOCTYPE html>
