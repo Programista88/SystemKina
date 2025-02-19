@@ -14,17 +14,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $db->prepare("SELECT klient_id, imie, nazwisko FROM klienci WHERE email = ? AND telefon = ?");
     $stmt->execute([$email, $telefon]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
     if ($user) {
         $_SESSION['user_id'] = $user['klient_id'];
         $_SESSION['user_name'] = $user['imie'] . ' ' . $user['nazwisko'];
+        $_SESSION['message'] = "Zalogowano pomyślnie!";
+        $_SESSION['message_type'] = "success";
         header('Location: konto.php');
         exit();
     } else {
-        $error = "Nieprawidłowy email lub telefon";
+        $_SESSION['message'] = "Nieprawidłowy email lub telefon";
+        $_SESSION['message_type'] = "error";
     }
 }
 ?>
+<?php if (isset($_SESSION['message'])): ?>
+    <div class="message <?php echo $_SESSION['message_type']; ?>">
+        <?php 
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+        unset($_SESSION['message_type']);
+        ?>
+    </div>
+<?php endif; ?>
 
 
 

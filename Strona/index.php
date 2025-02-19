@@ -1,4 +1,14 @@
 <?php require_once 'config.php'; ?>
+<?php if (isset($_SESSION['message'])): ?>
+    <div class="message <?php echo $_SESSION['message_type']; ?>">
+        <?php 
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+        unset($_SESSION['message_type']);
+        ?>
+    </div>
+<?php endif; ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -25,7 +35,7 @@
                     <li><a href="konto.php">Konto</a></li>
                     <li><a href="logout.php" class="logout-btn">Wyloguj</a></li>
                 <?php else: ?>
-                    <li><a href="login.php">Logowanie</a></li>
+                    <li><a href="login.php">Konto/Logowanie</a></li>
                     <li><a href="rejestracja.php">Rejestracja</a></li>
                 <?php endif; ?>
             </ul>

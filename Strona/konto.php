@@ -11,6 +11,16 @@ $stmt = $db->prepare("SELECT * FROM klienci WHERE klient_id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
+<?php if (isset($_SESSION['message'])): ?>
+    <div class="message <?php echo $_SESSION['message_type']; ?>">
+        <?php 
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+        unset($_SESSION['message_type']);
+        ?>
+    </div>
+<?php endif; ?>
+
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -31,7 +41,6 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         <nav>
             <ul>
                 <li><a href="index.php">Strona główna</a></li>
-                <li><a href="konto.php">Konto</a></li>
                 <li><a href="wylogowanie.php" class="logout-btn">Wyloguj</a></li>
             </ul>
         </nav>
