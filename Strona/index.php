@@ -57,11 +57,10 @@ require_once 'config.php'; ?>
                 echo '<h3>' . htmlspecialchars($film['tytul']) . '</h3>';
                 echo '<p>' . htmlspecialchars($film['opis']) . '</p>';
                 if (isset($_SESSION['user_id'])) {
-                    echo '<button onclick="reserveTicket(' . $film['film_id'] . ')" class="reserve-btn">Zarezerwuj bilet</button>';
+                    echo '<a href="proces_rezerw.php?film_id=' . $film['film_id'] . '" class="reserve-btn">Zarezerwuj bilet</a>';
                 } else {
                     echo '<a href="login.php" class="btn-login">Zaloguj się aby zarezerwować</a>';
-                }
-                echo '</div>';
+                }                echo '</div>';
             }
             ?>
         </div>

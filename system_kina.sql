@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2025 at 08:48 PM
+-- Generation Time: Feb 20, 2025 at 07:31 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -70,6 +70,13 @@ CREATE TABLE `klienci` (
   `data_rejestracji` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `klienci`
+--
+
+INSERT INTO `klienci` (`klient_id`, `imie`, `nazwisko`, `email`, `telefon`, `data_rejestracji`) VALUES
+(7, 'Jan', 'Kilanski', 'maciar.faceit@gmail.com', '923923929', '2025-02-19 19:59:35');
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +89,162 @@ CREATE TABLE `miejsca` (
   `numer_rzedu` int(11) NOT NULL,
   `numer_miejsca` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `miejsca`
+--
+
+INSERT INTO `miejsca` (`miejsce_id`, `sala_id`, `numer_rzedu`, `numer_miejsca`) VALUES
+(1, 1, 1, 1),
+(2, 1, 1, 2),
+(3, 1, 1, 3),
+(4, 1, 1, 4),
+(5, 1, 1, 5),
+(6, 1, 1, 6),
+(7, 1, 1, 7),
+(8, 1, 1, 8),
+(9, 1, 2, 1),
+(10, 1, 2, 2),
+(11, 1, 2, 3),
+(12, 1, 2, 4),
+(13, 1, 2, 5),
+(14, 1, 2, 6),
+(15, 1, 2, 7),
+(16, 1, 2, 8),
+(17, 1, 3, 1),
+(18, 1, 3, 2),
+(19, 1, 3, 3),
+(20, 1, 3, 4),
+(21, 1, 3, 5),
+(22, 1, 3, 6),
+(23, 1, 3, 7),
+(24, 1, 3, 8),
+(25, 1, 4, 1),
+(26, 1, 4, 2),
+(27, 1, 4, 3),
+(28, 1, 4, 4),
+(29, 1, 4, 5),
+(30, 1, 4, 6),
+(31, 1, 4, 7),
+(32, 1, 4, 8),
+(33, 1, 5, 1),
+(34, 1, 5, 2),
+(35, 1, 5, 3),
+(36, 1, 5, 4),
+(37, 1, 5, 5),
+(38, 1, 5, 6),
+(39, 1, 5, 7),
+(40, 1, 5, 8),
+(41, 2, 1, 1),
+(42, 2, 1, 2),
+(43, 2, 1, 3),
+(44, 2, 1, 4),
+(45, 2, 1, 5),
+(46, 2, 1, 6),
+(47, 2, 1, 7),
+(48, 2, 1, 8),
+(49, 2, 1, 9),
+(50, 2, 1, 10),
+(51, 2, 2, 1),
+(52, 2, 2, 2),
+(53, 2, 2, 3),
+(54, 2, 2, 4),
+(55, 2, 2, 5),
+(56, 2, 2, 6),
+(57, 2, 2, 7),
+(58, 2, 2, 8),
+(59, 2, 2, 9),
+(60, 2, 2, 10),
+(61, 2, 3, 1),
+(62, 2, 3, 2),
+(63, 2, 3, 3),
+(64, 2, 3, 4),
+(65, 2, 3, 5),
+(66, 2, 3, 6),
+(67, 2, 3, 7),
+(68, 2, 3, 8),
+(69, 2, 3, 9),
+(70, 2, 3, 10),
+(71, 2, 4, 1),
+(72, 2, 4, 2),
+(73, 2, 4, 3),
+(74, 2, 4, 4),
+(75, 2, 4, 5),
+(76, 2, 4, 6),
+(77, 2, 4, 7),
+(78, 2, 4, 8),
+(79, 2, 4, 9),
+(80, 2, 4, 10),
+(81, 2, 5, 1),
+(82, 2, 5, 2),
+(83, 2, 5, 3),
+(84, 2, 5, 4),
+(85, 2, 5, 5),
+(86, 2, 5, 6),
+(87, 2, 5, 7),
+(88, 2, 5, 8),
+(89, 2, 5, 9),
+(90, 2, 5, 10),
+(91, 3, 1, 1),
+(92, 3, 1, 2),
+(93, 3, 1, 3),
+(94, 3, 1, 4),
+(95, 3, 1, 5),
+(96, 3, 1, 6),
+(97, 3, 1, 7),
+(98, 3, 1, 8),
+(99, 3, 1, 9),
+(100, 3, 1, 10),
+(101, 3, 2, 1),
+(102, 3, 2, 2),
+(103, 3, 2, 3),
+(104, 3, 2, 4),
+(105, 3, 2, 5),
+(106, 3, 2, 6),
+(107, 3, 2, 7),
+(108, 3, 2, 8),
+(109, 3, 2, 9),
+(110, 3, 2, 10),
+(111, 3, 3, 1),
+(112, 3, 3, 2),
+(113, 3, 3, 3),
+(114, 3, 3, 4),
+(115, 3, 3, 5),
+(116, 3, 3, 6),
+(117, 3, 3, 7),
+(118, 3, 3, 8),
+(119, 3, 3, 9),
+(120, 3, 3, 10),
+(121, 3, 4, 1),
+(122, 3, 4, 2),
+(123, 3, 4, 3),
+(124, 3, 4, 4),
+(125, 3, 4, 5),
+(126, 3, 4, 6),
+(127, 3, 4, 7),
+(128, 3, 4, 8),
+(129, 3, 4, 9),
+(130, 3, 4, 10),
+(131, 3, 5, 1),
+(132, 3, 5, 2),
+(133, 3, 5, 3),
+(134, 3, 5, 4),
+(135, 3, 5, 5),
+(136, 3, 5, 6),
+(137, 3, 5, 7),
+(138, 3, 5, 8),
+(139, 3, 5, 9),
+(140, 3, 5, 10),
+(141, 3, 6, 1),
+(142, 3, 6, 2),
+(143, 3, 6, 3),
+(144, 3, 6, 4),
+(145, 3, 6, 5),
+(146, 3, 6, 6),
+(147, 3, 6, 7),
+(148, 3, 6, 8),
+(149, 3, 6, 9),
+(150, 3, 6, 10);
 
 -- --------------------------------------------------------
 
@@ -112,6 +275,14 @@ CREATE TABLE `rezerwacje` (
   `status` enum('aktywna','anulowana','zakonczona') DEFAULT 'aktywna'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `rezerwacje`
+--
+
+INSERT INTO `rezerwacje` (`rezerwacja_id`, `klient_id`, `seans_id`, `miejsce_id`, `data_rezerwacji`, `status`) VALUES
+(5, 7, 10, NULL, '2025-02-20 19:25:40', 'aktywna'),
+(6, 7, 10, NULL, '2025-02-20 19:26:54', 'aktywna');
+
 -- --------------------------------------------------------
 
 --
@@ -124,6 +295,15 @@ CREATE TABLE `sale` (
   `pojemnosc` int(11) NOT NULL,
   `czy_3d` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sale`
+--
+
+INSERT INTO `sale` (`sala_id`, `nazwa_sali`, `pojemnosc`, `czy_3d`) VALUES
+(1, 'Sala VIP', 40, 1),
+(2, 'Sala Komfortowa', 50, 0),
+(3, 'Sala Premium', 60, 0);
 
 -- --------------------------------------------------------
 
@@ -138,6 +318,24 @@ CREATE TABLE `seanse` (
   `data_seansu` datetime NOT NULL,
   `cena` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `seanse`
+--
+
+INSERT INTO `seanse` (`seans_id`, `film_id`, `sala_id`, `data_seansu`, `cena`) VALUES
+(1, 1, 1, '2025-02-20 15:30:00', 32.99),
+(2, 2, 2, '2025-02-20 18:00:00', 34.99),
+(3, 3, 1, '2025-02-20 20:30:00', 29.99),
+(4, 4, 3, '2025-02-21 16:00:00', 31.99),
+(5, 5, 2, '2025-02-21 19:00:00', 28.99),
+(6, 6, 1, '2025-02-21 21:30:00', 32.99),
+(7, 7, 3, '2025-02-22 17:00:00', 34.99),
+(8, 8, 2, '2025-02-22 20:00:00', 31.99),
+(9, 9, 1, '2025-02-23 16:30:00', 29.99),
+(10, 10, 3, '2025-02-23 19:30:00', 34.99),
+(11, 11, 2, '2025-02-24 15:00:00', 27.99),
+(12, 12, 1, '2025-02-24 18:30:00', 34.99);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -207,13 +405,13 @@ ALTER TABLE `filmy`
 -- AUTO_INCREMENT for table `klienci`
 --
 ALTER TABLE `klienci`
-  MODIFY `klient_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `klient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `miejsca`
 --
 ALTER TABLE `miejsca`
-  MODIFY `miejsce_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `miejsce_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
 
 --
 -- AUTO_INCREMENT for table `platnosci`
@@ -225,19 +423,19 @@ ALTER TABLE `platnosci`
 -- AUTO_INCREMENT for table `rezerwacje`
 --
 ALTER TABLE `rezerwacje`
-  MODIFY `rezerwacja_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `rezerwacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sale`
 --
 ALTER TABLE `sale`
-  MODIFY `sala_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sala_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `seanse`
 --
 ALTER TABLE `seanse`
-  MODIFY `seans_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `seans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables

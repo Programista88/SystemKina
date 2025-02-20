@@ -7,36 +7,14 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $film_id = $_POST['film_id'] ?? null;
-    $user_id = $_SESSION['user_id'];
-
-    if ($film_id) {
-        try {
-            $stmt = $db->prepare("SELECT seans_id FROM seanse WHERE film_id = ? AND data_seansu > NOW() LIMIT 1");
-            $stmt->execute([$film_id]);
-            $seans = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($seans) {
-                $stmt = $db->prepare("INSERT INTO rezerwacje (klient_id, seans_id, data_rezerwacji, status) VALUES (?, ?, NOW(), 'aktywna')");
-                if ($stmt->execute([$user_id, $seans['seans_id']])) {
-                    echo json_encode(['success' => true]);
-                    exit();
-                }
-            }
-            echo json_encode(['success' => false, 'message' => 'Brak dostępnych seansów']);
-        } catch(PDOException $e) {
-            echo json_encode(['success' => false, 'message' => 'Błąd podczas rezerwacji']);
-        }
-    }
-    exit();
-}
-
+// Fetch all reservations for the current user
 $stmt = $db->prepare("
-    SELECT r.*, f.tytul, s.data_seansu 
+    SELECT r.*, f.tytul, s.data_seansu, m.numer_rzedu, m.numer_miejsca, sa.nazwa_sali
     FROM rezerwacje r 
     JOIN seanse s ON r.seans_id = s.seans_id 
     JOIN filmy f ON s.film_id = f.film_id 
+    JOIN miejsca m ON r.miejsce_id = m.miejsce_id
+    JOIN sale sa ON s.sala_id = sa.sala_id
     WHERE r.klient_id = ?
     ORDER BY r.data_rezerwacji DESC
 ");
@@ -44,16 +22,14 @@ $stmt->execute([$_SESSION['user_id']]);
 $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
     <meta charset="UTF-8">
     <title>Moje Rezerwacje - Alekino</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
 </head>
-
 <body>
     <header>
         <div class="logo-container">
@@ -85,13 +61,32 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($reservations as $reservation): ?>
                     <div class="reservation-card">
                         <h3><?php echo htmlspecialchars($reservation['tytul']); ?></h3>
-                        <p>Data seansu: <?php echo date('d.m.Y H:i', strtotime($reservation['data_seansu'])); ?></p>
-                        <p>Status: <?php echo htmlspecialchars($reservation['status']); ?></p>
+                        <p>
+                            <strong>Data seansu:</strong><br>
+                            <?php echo date('d.m.Y H:i', strtotime($reservation['data_seansu'])); ?>
+                        </p>
+                        <p>
+                            <strong>Sala:</strong><br>
+                            <?php echo htmlspecialchars($reservation['nazwa_sali']); ?>
+                        </p>
+                        <p>
+                            <strong>Miejsce:</strong><br>
+                            Rząd <?php echo $reservation['numer_rzedu']; ?>, 
+                            Miejsce <?php echo $reservation['numer_miejsca']; ?>
+                        </p>
+                        <p>
+                            <strong>Data rezerwacji:</strong><br>
+                            <?php echo date('d.m.Y H:i', strtotime($reservation['data_rezerwacji'])); ?>
+                        </p>
+                        <p>
+                            <span class="status <?php echo strtolower($reservation['status']); ?>">
+                                <?php echo htmlspecialchars($reservation['status']); ?>
+                            </span>
+                        </p>
                     </div>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
     </main>
 </body>
-
 </html>
