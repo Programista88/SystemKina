@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2025 at 07:31 PM
+-- Generation Time: Mar 08, 2025 at 09:16 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -67,15 +67,16 @@ CREATE TABLE `klienci` (
   `nazwisko` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `telefon` varchar(15) DEFAULT NULL,
-  `data_rejestracji` datetime DEFAULT current_timestamp()
+  `data_rejestracji` datetime DEFAULT current_timestamp(),
+  `haslo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `klienci`
 --
 
-INSERT INTO `klienci` (`klient_id`, `imie`, `nazwisko`, `email`, `telefon`, `data_rejestracji`) VALUES
-(7, 'Jan', 'Kilanski', 'maciar.faceit@gmail.com', '923923929', '2025-02-19 19:59:35');
+INSERT INTO `klienci` (`klient_id`, `imie`, `nazwisko`, `email`, `telefon`, `data_rejestracji`, `haslo`) VALUES
+(9, 'Jan', 'Brzechwa', 'jdciwpape@wp.pl', '923923929', '2025-03-08 21:10:34', '$2y$10$0bipkm.zc5AZAkJBkNqbjuCpeyoe5sBZy9mfRsOV8U2epJVHTgz0a');
 
 -- --------------------------------------------------------
 
@@ -280,8 +281,7 @@ CREATE TABLE `rezerwacje` (
 --
 
 INSERT INTO `rezerwacje` (`rezerwacja_id`, `klient_id`, `seans_id`, `miejsce_id`, `data_rezerwacji`, `status`) VALUES
-(5, 7, 10, NULL, '2025-02-20 19:25:40', 'aktywna'),
-(6, 7, 10, NULL, '2025-02-20 19:26:54', 'aktywna');
+(15, 9, 10, 116, '2025-03-08 21:12:13', 'anulowana');
 
 -- --------------------------------------------------------
 
@@ -335,7 +335,8 @@ INSERT INTO `seanse` (`seans_id`, `film_id`, `sala_id`, `data_seansu`, `cena`) V
 (9, 9, 1, '2025-02-23 16:30:00', 29.99),
 (10, 10, 3, '2025-02-23 19:30:00', 34.99),
 (11, 11, 2, '2025-02-24 15:00:00', 27.99),
-(12, 12, 1, '2025-02-24 18:30:00', 34.99);
+(12, 12, 1, '2025-02-24 18:30:00', 34.99),
+(13, 10, 1, '2024-01-20 18:00:00', 25.00);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -405,7 +406,7 @@ ALTER TABLE `filmy`
 -- AUTO_INCREMENT for table `klienci`
 --
 ALTER TABLE `klienci`
-  MODIFY `klient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `klient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `miejsca`
@@ -423,7 +424,7 @@ ALTER TABLE `platnosci`
 -- AUTO_INCREMENT for table `rezerwacje`
 --
 ALTER TABLE `rezerwacje`
-  MODIFY `rezerwacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `rezerwacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `sale`
@@ -435,7 +436,7 @@ ALTER TABLE `sale`
 -- AUTO_INCREMENT for table `seanse`
 --
 ALTER TABLE `seanse`
-  MODIFY `seans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `seans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
