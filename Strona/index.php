@@ -47,7 +47,6 @@ require_once 'config.php'; ?>
 
 
     <main>
-        <h2>Aktualne Filmy</h2>
         <div class="movies">
             <?php
             $stmt = $db->query("SELECT * FROM filmy WHERE data_premiery <= CURRENT_DATE ORDER BY data_premiery DESC");

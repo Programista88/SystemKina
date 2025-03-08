@@ -41,10 +41,12 @@ $stmt = $db->prepare("
     FROM seanse s
     JOIN sale sa ON s.sala_id = sa.sala_id
     WHERE s.film_id = ? 
+    AND s.data_seansu > NOW()
     ORDER BY s.data_seansu
 ");
 $stmt->execute([$film_id]);
 $seanse = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $seans_id = $_POST['seans_id'] ?? null;

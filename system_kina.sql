@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2025 at 09:16 PM
+-- Generation Time: Mar 08, 2025 at 11:46 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -76,7 +76,8 @@ CREATE TABLE `klienci` (
 --
 
 INSERT INTO `klienci` (`klient_id`, `imie`, `nazwisko`, `email`, `telefon`, `data_rejestracji`, `haslo`) VALUES
-(9, 'Jan', 'Brzechwa', 'jdciwpape@wp.pl', '923923929', '2025-03-08 21:10:34', '$2y$10$0bipkm.zc5AZAkJBkNqbjuCpeyoe5sBZy9mfRsOV8U2epJVHTgz0a');
+(9, 'Jan', 'Brzechwa', 'jdciwpape@wp.pl', '923923929', '2025-03-08 21:10:34', '$2y$10$0bipkm.zc5AZAkJBkNqbjuCpeyoe5sBZy9mfRsOV8U2epJVHTgz0a'),
+(10, 'Jan', 'Kowalski', 'johhnygraham497@gmail.com', '923923923', '2025-03-08 22:05:39', '$2y$10$p7vDSxIdWELH8aXZkTWRNO7RKaet0HQ6gSrTs4OS5g1t7OyxqnRIu');
 
 -- --------------------------------------------------------
 
@@ -258,8 +259,27 @@ CREATE TABLE `platnosci` (
   `rezerwacja_id` int(11) DEFAULT NULL,
   `kwota` decimal(10,2) NOT NULL,
   `data_platnosci` datetime DEFAULT current_timestamp(),
-  `metoda_platnosci` enum('gotowka','karta','online') NOT NULL
+  `metoda_platnosci` enum('karta','blik') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `platnosci`
+--
+
+INSERT INTO `platnosci` (`platnosc_id`, `rezerwacja_id`, `kwota`, `data_platnosci`, `metoda_platnosci`) VALUES
+(1, 21, 34.99, '2025-03-08 21:39:27', 'karta'),
+(2, 22, 34.99, '2025-03-08 21:40:31', 'karta'),
+(3, 23, 34.99, '2025-03-08 21:43:25', 'karta'),
+(4, 24, 34.99, '2025-03-08 21:47:35', 'karta'),
+(5, 25, 34.99, '2025-03-08 21:52:35', 'karta'),
+(6, 26, 34.99, '2025-03-08 21:52:54', 'blik'),
+(7, 27, 25.00, '2025-03-08 22:04:57', 'blik'),
+(8, 29, 34.99, '2025-03-08 22:15:15', 'karta'),
+(9, 31, 34.99, '2025-03-08 22:28:50', 'karta'),
+(10, 32, 28.99, '2025-03-08 22:57:04', 'blik'),
+(11, 33, 34.99, '2025-03-08 23:09:06', 'blik'),
+(12, 34, 25.00, '2025-03-08 23:17:28', 'karta'),
+(13, 35, 34.99, '2025-03-08 23:21:49', 'karta');
 
 -- --------------------------------------------------------
 
@@ -273,15 +293,36 @@ CREATE TABLE `rezerwacje` (
   `seans_id` int(11) DEFAULT NULL,
   `miejsce_id` int(11) DEFAULT NULL,
   `data_rezerwacji` datetime DEFAULT current_timestamp(),
-  `status` enum('aktywna','anulowana','zakonczona') DEFAULT 'aktywna'
+  `status` enum('aktywna','anulowana','zakonczona') DEFAULT 'aktywna',
+  `data_platnosci` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rezerwacje`
 --
 
-INSERT INTO `rezerwacje` (`rezerwacja_id`, `klient_id`, `seans_id`, `miejsce_id`, `data_rezerwacji`, `status`) VALUES
-(15, 9, 10, 116, '2025-03-08 21:12:13', 'anulowana');
+INSERT INTO `rezerwacje` (`rezerwacja_id`, `klient_id`, `seans_id`, `miejsce_id`, `data_rezerwacji`, `status`, `data_platnosci`) VALUES
+(15, 9, 10, 116, '2025-03-08 21:12:13', 'anulowana', NULL),
+(16, 9, 1, 30, '2025-03-08 21:23:51', 'anulowana', NULL),
+(17, 9, 10, 126, '2025-03-08 21:28:03', 'anulowana', '2025-03-08 21:31:32'),
+(18, 9, 1, 40, '2025-03-08 21:31:48', 'anulowana', '2025-03-08 21:32:02'),
+(19, 9, 1, 36, '2025-03-08 21:33:42', 'anulowana', '2025-03-08 21:34:05'),
+(20, 9, 1, 40, '2025-03-08 21:34:42', 'anulowana', '2025-03-08 21:34:46'),
+(21, 9, 10, 150, '2025-03-08 21:39:15', 'anulowana', '2025-03-08 21:39:27'),
+(22, 9, 10, 150, '2025-03-08 21:40:24', 'anulowana', '2025-03-08 21:40:31'),
+(23, 9, 10, 150, '2025-03-08 21:43:05', 'anulowana', '2025-03-08 21:43:25'),
+(24, 9, 10, 150, '2025-03-08 21:47:27', 'anulowana', '2025-03-08 21:47:35'),
+(25, 9, 10, 150, '2025-03-08 21:52:28', 'zakonczona', '2025-03-08 21:52:35'),
+(26, 9, 10, 149, '2025-03-08 21:52:50', 'zakonczona', '2025-03-08 21:52:54'),
+(27, 9, 13, 40, '2025-03-08 22:04:54', 'zakonczona', '2025-03-08 22:04:57'),
+(28, 10, 10, 148, '2025-03-08 22:08:29', 'zakonczona', NULL),
+(29, 10, 10, 146, '2025-03-08 22:14:50', 'zakonczona', '2025-03-08 22:15:15'),
+(30, 10, 13, 40, '2025-03-08 22:23:07', 'zakonczona', NULL),
+(31, 10, 10, 150, '2025-03-08 22:28:43', 'aktywna', '2025-03-08 22:28:50'),
+(32, 10, 5, 90, '2025-03-08 22:56:59', 'aktywna', '2025-03-08 22:57:04'),
+(33, 10, 7, 136, '2025-03-08 23:09:03', 'anulowana', '2025-03-08 23:09:06'),
+(34, 10, 13, 40, '2025-03-08 23:17:21', 'aktywna', '2025-03-08 23:17:28'),
+(35, 10, 10, 148, '2025-03-08 23:21:42', 'aktywna', '2025-03-08 23:21:49');
 
 -- --------------------------------------------------------
 
@@ -324,19 +365,19 @@ CREATE TABLE `seanse` (
 --
 
 INSERT INTO `seanse` (`seans_id`, `film_id`, `sala_id`, `data_seansu`, `cena`) VALUES
-(1, 1, 1, '2025-02-20 15:30:00', 32.99),
-(2, 2, 2, '2025-02-20 18:00:00', 34.99),
-(3, 3, 1, '2025-02-20 20:30:00', 29.99),
-(4, 4, 3, '2025-02-21 16:00:00', 31.99),
-(5, 5, 2, '2025-02-21 19:00:00', 28.99),
-(6, 6, 1, '2025-02-21 21:30:00', 32.99),
-(7, 7, 3, '2025-02-22 17:00:00', 34.99),
-(8, 8, 2, '2025-02-22 20:00:00', 31.99),
-(9, 9, 1, '2025-02-23 16:30:00', 29.99),
-(10, 10, 3, '2025-02-23 19:30:00', 34.99),
-(11, 11, 2, '2025-02-24 15:00:00', 27.99),
-(12, 12, 1, '2025-02-24 18:30:00', 34.99),
-(13, 10, 1, '2024-01-20 18:00:00', 25.00);
+(1, 1, 1, '2025-04-01 15:30:00', 32.99),
+(2, 2, 2, '2025-04-03 18:00:00', 34.99),
+(3, 3, 1, '2025-04-05 20:30:00', 29.99),
+(4, 4, 3, '2025-04-07 16:00:00', 31.99),
+(5, 5, 2, '2025-04-10 19:00:00', 28.99),
+(6, 6, 1, '2025-04-15 21:30:00', 32.99),
+(7, 7, 3, '2025-04-20 17:00:00', 34.99),
+(8, 8, 2, '2025-04-25 20:00:00', 31.99),
+(9, 9, 1, '2025-05-01 16:30:00', 29.99),
+(10, 10, 3, '2025-05-05 19:30:00', 34.99),
+(11, 11, 2, '2025-05-10 15:00:00', 27.99),
+(12, 12, 1, '2025-05-15 18:30:00', 34.99),
+(13, 10, 1, '2025-05-20 20:00:00', 25.00);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -406,7 +447,7 @@ ALTER TABLE `filmy`
 -- AUTO_INCREMENT for table `klienci`
 --
 ALTER TABLE `klienci`
-  MODIFY `klient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `klient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `miejsca`
@@ -418,13 +459,13 @@ ALTER TABLE `miejsca`
 -- AUTO_INCREMENT for table `platnosci`
 --
 ALTER TABLE `platnosci`
-  MODIFY `platnosc_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `platnosc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `rezerwacje`
 --
 ALTER TABLE `rezerwacje`
-  MODIFY `rezerwacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `rezerwacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `sale`

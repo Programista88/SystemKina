@@ -7,6 +7,15 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$stmt = $db->prepare("
+    UPDATE rezerwacje r 
+    JOIN seanse s ON r.seans_id = s.seans_id 
+    SET r.status = 'zakonczona' 
+    WHERE r.status = 'aktywna' 
+    AND s.data_seansu < NOW()
+");
+$stmt->execute();
+
 
 $stmt = $db->prepare("
     SELECT r.*, f.tytul, s.data_seansu, m.numer_rzedu, m.numer_miejsca, sa.nazwa_sali
@@ -86,7 +95,14 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <?php echo htmlspecialchars($reservation['status']); ?>
                             </span>
                         </p>
-                        <?php if ($reservation['status'] !== 'anulowana'): ?>
+
+                        <?php if ($reservation['status'] === 'aktywna'): ?>
+                            <a href="kod_qr.php?id=<?php echo $reservation['rezerwacja_id']; ?>" class="qr-btn">
+                                <i class="fas fa-qrcode"></i> Pokaż kod QR
+                            </a>
+                        <?php endif; ?>
+
+                        <?php if ($reservation['status'] !== 'anulowana' && $reservation['status'] !== 'zakonczona'): ?>
                             <a href="anuluj_rezerwacje.php?id=<?php echo $reservation['rezerwacja_id']; ?>" class="cancel-btn"
                                 onclick="return confirm('Czy na pewno chcesz anulować tę rezerwację?')">
                                 Anuluj rezerwację
