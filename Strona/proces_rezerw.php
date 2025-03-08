@@ -52,12 +52,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($seans_id && $miejsce_id) {
         try {
-
             $stmt = $db->prepare("
                 SELECT 1 FROM rezerwacje 
-                WHERE seans_id = ? AND miejsce_id = ? AND status = 'aktywna'
+                WHERE seans_id = ? 
+                AND miejsce_id = ? 
+                AND status = 'aktywna'
             ");
             $stmt->execute([$seans_id, $miejsce_id]);
+
+
 
             if (!$stmt->fetch()) {
 
@@ -66,9 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     VALUES (?, ?, ?, NOW(), 'aktywna')
                 ");
                 if ($stmt->execute([$_SESSION['user_id'], $seans_id, $miejsce_id])) {
-                    $_SESSION['message'] = 'Rezerwacja została pomyślnie utworzona!';
+                    $_SESSION['message'] = 'Rezerwacja została utworzona. Przejdź do płatności.';
                     $_SESSION['message_type'] = 'success';
-                    header('Location: rezerwacje.php');
+                    $rezerwacja_id = $db->lastInsertId();
+                    header("Location: platnosc.php?rezerwacja_id=" . $rezerwacja_id);
                     exit();
                 }
             } else {

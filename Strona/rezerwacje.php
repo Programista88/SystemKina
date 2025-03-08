@@ -81,6 +81,7 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php echo date('d.m.Y H:i', strtotime($reservation['data_rezerwacji'])); ?>
                         </p>
                         <p>
+                            <strong>Status:</strong><br>
                             <span class="status <?php echo strtolower($reservation['status']); ?>">
                                 <?php echo htmlspecialchars($reservation['status']); ?>
                             </span>
