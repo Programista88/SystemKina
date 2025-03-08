@@ -38,7 +38,7 @@ require_once 'config.php'; ?>
                     <li><a href="konto.php">Konto</a></li>
                     <li><a href="wylogowanie.php" class="logout-btn">Wyloguj</a></li>
                 <?php else: ?>
-                    <li><a href="login.php">Konto/Logowanie</a></li>
+                    <li><a href="login.php">Logowanie</a></li>
                     <li><a href="rejestracja.php">Rejestracja</a></li>
                 <?php endif; ?>
             </ul>

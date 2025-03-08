@@ -791,4 +791,50 @@ footer {
     background: #0056b3;
 }
 
+.cancel-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #ff4444;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.cancel-btn:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+}
+
+.cancel-btn:active {
+    transform: scale(0.98);
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 35px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+}
+
+.password-toggle:hover {
+    color: #333;
+}
+
 

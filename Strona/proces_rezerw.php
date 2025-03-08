@@ -1,6 +1,22 @@
 <?php
 session_start();
 require_once 'config.php';
+$film_id = $_GET['film_id'] ?? null;
+
+
+$stmt = $db->prepare("SELECT * FROM filmy WHERE film_id = ?");
+$stmt->execute([$film_id]);
+$film = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+$stmt = $db->prepare("
+    SELECT s.*, sa.nazwa_sali, sa.sala_id 
+    FROM seanse s
+    JOIN sale sa ON s.sala_id = sa.sala_id
+    WHERE s.film_id = ?
+");
+$stmt->execute([$film_id]);
+$seanse = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
@@ -24,7 +40,7 @@ $stmt = $db->prepare("
     SELECT s.*, sa.nazwa_sali, sa.sala_id 
     FROM seanse s
     JOIN sale sa ON s.sala_id = sa.sala_id
-    WHERE s.film_id = ? AND s.data_seansu > NOW()
+    WHERE s.film_id = ? 
     ORDER BY s.data_seansu
 ");
 $stmt->execute([$film_id]);
@@ -75,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Rezerwacja biletu - <?php echo htmlspecialchars($film['tytul']); ?></title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -111,14 +128,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <select name="seans_id" id="seans_id" required>
                     <option value="">Wybierz datę i godzinę</option>
                     <?php foreach ($seanse as $seans): ?>
-                        <option value="<?php echo $seans['seans_id']; ?>">
-                            <?php echo date('d.m.Y H:i', strtotime($seans['data_seansu'])); ?>
+                        <option value="<?php echo htmlspecialchars($seans['seans_id']); ?>">
+                            <?php
+                            $data_seansu = new DateTime($seans['data_seansu']);
+                            echo $data_seansu->format('d.m.Y H:i');
+                            ?>
                             - <?php echo htmlspecialchars($seans['nazwa_sali']); ?>
                             - <?php echo number_format($seans['cena'], 2); ?> zł
                         </option>
                     <?php endforeach; ?>
                 </select>
             </div>
+
 
             <div class="seat-selection">
                 <h3>Wybierz miejsce:</h3>
@@ -129,44 +150,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="submit-btn">Zarezerwuj bilet</button>
         </form>
     </main>
-
     <script>
-        document.getElementById('seans_id').addEventListener('change', function () {
-            const seansId = this.value;
-            if (seansId) {
-                fetch(`get_available_seats.php?seans_id=${seansId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const seatMap = document.getElementById('seatMap');
-                        seatMap.innerHTML = '';
-                        let currentRow = 0;
-                        let rowDiv;
+        document.addEventListener('DOMContentLoaded', function () {
+            const seansSelect = document.getElementById('seans_id');
+            seansSelect.addEventListener('change', function () {
+                const seansId = this.value;
+                if (seansId) {
+                    loadSeats(seansId);
+                }
+            });
 
-                        data.forEach(seat => {
-                            if (currentRow !== seat.numer_rzedu) {
-                                currentRow = seat.numer_rzedu;
-                                rowDiv = document.createElement('div');
-                                rowDiv.className = 'seat-row';
-                                seatMap.appendChild(rowDiv);
-                            }
-
-                            const seatDiv = document.createElement('div');
-                            seatDiv.className = `seat ${seat.zajete === '1' ? 'occupied' : ''}`;
-                            seatDiv.textContent = seat.numer_miejsca;
-                            seatDiv.dataset.miejsceId = seat.miejsce_id;
-
-                            if (seat.zajete !== '1') {
-                                seatDiv.addEventListener('click', function () {
-                                    document.querySelectorAll('.seat.selected').forEach(s => s.classList.remove('selected'));
-                                    this.classList.add('selected');
-                                    document.getElementById('miejsce_id').value = this.dataset.miejsceId;
-                                });
-                            }
-
-                            rowDiv.appendChild(seatDiv);
-                        });
-                    });
-            }
+            document.getElementById('reservationForm').addEventListener('submit', function (e) {
+                const miejsceId = document.getElementById('miejsce_id').value;
+                if (!miejsceId) {
+                    e.preventDefault();
+                    alert('Proszę wybrać miejsce');
+                }
+            });
         });
     </script>
 </body>

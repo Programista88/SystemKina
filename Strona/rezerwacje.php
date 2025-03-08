@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Fetch all reservations for the current user
+
 $stmt = $db->prepare("
     SELECT r.*, f.tytul, s.data_seansu, m.numer_rzedu, m.numer_miejsca, sa.nazwa_sali
     FROM rezerwacje r 
@@ -24,12 +24,14 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <title>Moje Rezerwacje - Alekino</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
 </head>
+
 <body>
     <header>
         <div class="logo-container">
@@ -71,7 +73,7 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </p>
                         <p>
                             <strong>Miejsce:</strong><br>
-                            Rząd <?php echo $reservation['numer_rzedu']; ?>, 
+                            Rząd <?php echo $reservation['numer_rzedu']; ?>,
                             Miejsce <?php echo $reservation['numer_miejsca']; ?>
                         </p>
                         <p>
@@ -83,10 +85,17 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <?php echo htmlspecialchars($reservation['status']); ?>
                             </span>
                         </p>
+                        <?php if ($reservation['status'] !== 'anulowana'): ?>
+                            <a href="anuluj_rezerwacje.php?id=<?php echo $reservation['rezerwacja_id']; ?>" class="cancel-btn"
+                                onclick="return confirm('Czy na pewno chcesz anulować tę rezerwację?')">
+                                Anuluj rezerwację
+                            </a>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
     </main>
 </body>
+
 </html>

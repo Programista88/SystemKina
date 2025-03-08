@@ -7,35 +7,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nazwisko = trim($_POST['nazwisko']);
     $email = trim($_POST['email']);
     $telefon = trim($_POST['telefon']);
+    $haslo = trim($_POST['haslo']);
+    $haslo_potwierdz = trim($_POST['haslo_potwierdz']);
 
-    $check_email = $db->prepare("SELECT klient_id FROM klienci WHERE email = ?");
-    $check_email->execute([$email]);
-
-    if ($stmt->execute([$imie, $nazwisko, $email, $telefon])) {
-        $_SESSION['message'] = "Rejestracja przebiegła pomyślnie!";
-        $_SESSION['message_type'] = "success";
-        header('Location: login.php');
-        exit();
-    }
-    
-    if ($check_email->rowCount() > 0) {
-        $error = "Ten email jest już zarejestrowany";
+    if ($haslo !== $haslo_potwierdz) {
+        $error = "Hasła nie są identyczne";
     } else {
-        $stmt = $db->prepare("INSERT INTO klienci (imie, nazwisko, email, telefon) VALUES (?, ?, ?, ?)");
-        try {
-            $stmt->execute([$imie, $nazwisko, $email, $telefon]);
-            $_SESSION['registration_success'] = true;
-            header('Location: login.php');
-            exit();
-        } catch(PDOException $e) {
-            $error = "Błąd podczas rejestracji";
+        $check_email = $db->prepare("SELECT klient_id FROM klienci WHERE email = ?");
+        $check_email->execute([$email]);
+
+        if ($check_email->rowCount() > 0) {
+            $error = "Ten email jest już zarejestrowany";
+        } else {
+            $hashed_password = password_hash($haslo, PASSWORD_DEFAULT);
+            $stmt = $db->prepare("INSERT INTO klienci (imie, nazwisko, email, telefon, haslo) VALUES (?, ?, ?, ?, ?)");
+            try {
+                $stmt->execute([$imie, $nazwisko, $email, $telefon, $hashed_password]);
+                $_SESSION['message'] = "Rejestracja przebiegła pomyślnie!";
+                $_SESSION['message_type'] = "success";
+                header('Location: login.php');
+                exit();
+            } catch (PDOException $e) {
+                $error = "Błąd podczas rejestracji";
+            }
         }
     }
 }
+
+
 ?>
 <?php if (isset($_SESSION['message'])): ?>
     <div class="message <?php echo $_SESSION['message_type']; ?>">
-        <?php 
+        <?php
         echo $_SESSION['message'];
         unset($_SESSION['message']);
         unset($_SESSION['message_type']);
@@ -46,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+
 <body>
     <header>
         <div class="logo-container">
@@ -98,8 +103,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="form-group">
+                <label for="haslo"><i class="fas fa-lock"></i> Hasło</label>
+                <div class="password-container">
+                    <input type="password" id="haslo" name="haslo" required>
+                    <i class="fas fa-eye password-toggle" onclick="togglePassword('haslo')"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="haslo_potwierdz"><i class="fas fa-lock"></i> Potwierdź hasło</label>
+                <div class="password-container">
+                    <input type="password" id="haslo_potwierdz" name="haslo_potwierdz" required>
+                    <i class="fas fa-eye password-toggle" onclick="togglePassword('haslo_potwierdz')"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="telefon"><i class="fas fa-phone"></i> Telefon</label>
-                <input type="tel" id="telefon" name="telefon" pattern="[0-9]{9}" required>
+                <input type="tel" id="telefon" name="telefon" maxlength="9" pattern="[0-9]{9}" required>
             </div>
 
             <button type="submit">
@@ -111,5 +132,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </form>
     </main>
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling;
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
+
 </html>
