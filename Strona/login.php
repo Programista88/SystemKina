@@ -45,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <nav>
             <ul>
                 <li><a href="index.php">Strona główna</a></li>
-                <li><a href="login.php">Logowanie</a></li>
                 <li><a href="rejestracja.php">Rejestracja</a></li>
             </ul>
         </nav>
@@ -66,8 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ?>
             </div>
         <?php endif; ?>
+        <div class="login-type-toggle">
+            <button type="button" class="toggle-btn active" onclick="switchLoginType('customer')">Klient</button>
+            <button type="button" class="toggle-btn" onclick="switchLoginType('employee')">Pracownik</button>
+        </div>
 
-        <form class="login-form" method="POST" action="">
+        <form id="customer-login" class="login-form" method="POST" action="login.php">
             <div class="form-group">
                 <label for="email"><i class="fas fa-envelope"></i> Email</label>
                 <input type="email" id="email" name="email" required>
@@ -94,6 +97,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 Nie masz konta? <a href="rejestracja.php">Zarejestruj się</a>
             </div>
         </form>
+        <form id="employee-login" class="login-form" method="POST" action="login_pracownik.php">
+            <div class="form-group">
+                <label for="employee-email"><i class="fas fa-envelope"></i> Email służbowy</label>
+                <input type="email" id="employee-email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="employee-password"><i class="fas fa-lock"></i> Hasło</label>
+                <div class="password-container">
+                    <input type="password" id="employee-password" name="password" required>
+                    <i class="fas fa-eye password-toggle" onclick="togglePassword('employee-password')"></i>
+                </div>
+            </div>
+
+            <button type="submit">
+                <i class="fas fa-sign-in-alt"></i> Zaloguj jako pracownik
+            </button>
+        </form>
     </main>
     <script>
         function togglePassword(inputId) {
@@ -110,6 +131,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 icon.classList.add('fa-eye');
             }
         }
+    </script>
+    <script>
+        function switchLoginType(type) {
+            const customerForm = document.getElementById('customer-login');
+            const employeeForm = document.getElementById('employee-login');
+            const buttons = document.querySelectorAll('.toggle-btn');
+
+            customerForm.classList.remove('active');
+            employeeForm.classList.remove('active');
+
+            if (type === 'customer') {
+                customerForm.classList.add('active');
+            } else {
+                employeeForm.classList.add('active');
+            }
+
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(type)) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            switchLoginType('customer');
+        });
+
     </script>
 </body>
 

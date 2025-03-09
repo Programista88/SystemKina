@@ -4,6 +4,7 @@ require_once 'config.php';
 $film_id = $_GET['film_id'] ?? null;
 
 
+
 $stmt = $db->prepare("SELECT * FROM filmy WHERE film_id = ?");
 $stmt->execute([$film_id]);
 $film = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -76,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $rezerwacja_id = $db->lastInsertId();
                     header("Location: platnosc.php?rezerwacja_id=" . $rezerwacja_id);
                     exit();
-                }
+                }              
             } else {
                 $error = "To miejsce jest już zajęte";
             }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2025 at 11:46 PM
+-- Generation Time: Mar 09, 2025 at 08:08 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -77,7 +77,8 @@ CREATE TABLE `klienci` (
 
 INSERT INTO `klienci` (`klient_id`, `imie`, `nazwisko`, `email`, `telefon`, `data_rejestracji`, `haslo`) VALUES
 (9, 'Jan', 'Brzechwa', 'jdciwpape@wp.pl', '923923929', '2025-03-08 21:10:34', '$2y$10$0bipkm.zc5AZAkJBkNqbjuCpeyoe5sBZy9mfRsOV8U2epJVHTgz0a'),
-(10, 'Jan', 'Kowalski', 'johhnygraham497@gmail.com', '923923923', '2025-03-08 22:05:39', '$2y$10$p7vDSxIdWELH8aXZkTWRNO7RKaet0HQ6gSrTs4OS5g1t7OyxqnRIu');
+(10, 'Jan', 'Kowalski', 'johhnygraham497@gmail.com', '923923923', '2025-03-08 22:05:39', '$2y$10$p7vDSxIdWELH8aXZkTWRNO7RKaet0HQ6gSrTs4OS5g1t7OyxqnRIu'),
+(11, 'Amelka', 'Lala', 'lalaal@gmail.com', '923923929', '2025-03-08 23:51:26', '$2y$10$agJf7pyo1HR3Gl5lt/e/N.kdw9LxWIcu.Xf6lgieUtflGvhz1Dj4u');
 
 -- --------------------------------------------------------
 
@@ -279,7 +280,36 @@ INSERT INTO `platnosci` (`platnosc_id`, `rezerwacja_id`, `kwota`, `data_platnosc
 (10, 32, 28.99, '2025-03-08 22:57:04', 'blik'),
 (11, 33, 34.99, '2025-03-08 23:09:06', 'blik'),
 (12, 34, 25.00, '2025-03-08 23:17:28', 'karta'),
-(13, 35, 34.99, '2025-03-08 23:21:49', 'karta');
+(13, 35, 34.99, '2025-03-08 23:21:49', 'karta'),
+(14, 36, 32.99, '2025-03-08 23:54:21', 'karta'),
+(15, 37, 32.99, '2025-03-08 23:55:50', 'blik'),
+(16, 38, 25.00, '2025-03-09 15:29:48', 'karta'),
+(17, 41, 34.99, '2025-03-09 15:46:37', 'karta'),
+(18, 42, 25.00, '2025-03-09 15:48:01', 'blik'),
+(19, 43, 25.00, '2025-03-09 19:37:05', 'blik');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `pracownicy`
+--
+
+CREATE TABLE `pracownicy` (
+  `pracownik_id` int(11) NOT NULL,
+  `imie` varchar(50) NOT NULL,
+  `nazwisko` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `haslo` varchar(255) NOT NULL,
+  `stanowisko` enum('admin','kierownik','pracownik') NOT NULL,
+  `data_zatrudnienia` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pracownicy`
+--
+
+INSERT INTO `pracownicy` (`pracownik_id`, `imie`, `nazwisko`, `email`, `haslo`, `stanowisko`, `data_zatrudnienia`) VALUES
+(9, 'Admin', 'System', 'admin@alekino.pl', '$2y$10$smWhciRsCQK2GigZYqPfieW1z1m.7FIdIMb3uSbskYpJ/.GwTZRtK', 'admin', '2025-03-09 18:55:36');
 
 -- --------------------------------------------------------
 
@@ -322,7 +352,15 @@ INSERT INTO `rezerwacje` (`rezerwacja_id`, `klient_id`, `seans_id`, `miejsce_id`
 (32, 10, 5, 90, '2025-03-08 22:56:59', 'aktywna', '2025-03-08 22:57:04'),
 (33, 10, 7, 136, '2025-03-08 23:09:03', 'anulowana', '2025-03-08 23:09:06'),
 (34, 10, 13, 40, '2025-03-08 23:17:21', 'aktywna', '2025-03-08 23:17:28'),
-(35, 10, 10, 148, '2025-03-08 23:21:42', 'aktywna', '2025-03-08 23:21:49');
+(35, 10, 10, 148, '2025-03-08 23:21:42', 'aktywna', '2025-03-08 23:21:49'),
+(36, 11, 1, 29, '2025-03-08 23:53:42', 'anulowana', '2025-03-08 23:54:21'),
+(37, 11, 1, 40, '2025-03-08 23:55:48', 'anulowana', '2025-03-08 23:55:50'),
+(38, 11, 13, 39, '2025-03-09 15:29:42', 'anulowana', '2025-03-09 15:29:48'),
+(39, 11, 13, 39, '2025-03-09 15:45:20', 'anulowana', NULL),
+(40, 11, 13, 31, '2025-03-09 15:45:32', 'aktywna', NULL),
+(41, 11, 10, 149, '2025-03-09 15:46:32', 'anulowana', '2025-03-09 15:46:37'),
+(42, 11, 13, 39, '2025-03-09 15:47:59', 'aktywna', '2025-03-09 15:48:01'),
+(43, 11, 13, 38, '2025-03-09 19:37:02', 'aktywna', '2025-03-09 19:37:05');
 
 -- --------------------------------------------------------
 
@@ -411,6 +449,13 @@ ALTER TABLE `platnosci`
   ADD KEY `rezerwacja_id` (`rezerwacja_id`);
 
 --
+-- Indeksy dla tabeli `pracownicy`
+--
+ALTER TABLE `pracownicy`
+  ADD PRIMARY KEY (`pracownik_id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- Indeksy dla tabeli `rezerwacje`
 --
 ALTER TABLE `rezerwacje`
@@ -447,7 +492,7 @@ ALTER TABLE `filmy`
 -- AUTO_INCREMENT for table `klienci`
 --
 ALTER TABLE `klienci`
-  MODIFY `klient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `klient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `miejsca`
@@ -459,13 +504,19 @@ ALTER TABLE `miejsca`
 -- AUTO_INCREMENT for table `platnosci`
 --
 ALTER TABLE `platnosci`
-  MODIFY `platnosc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `platnosc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `pracownicy`
+--
+ALTER TABLE `pracownicy`
+  MODIFY `pracownik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `rezerwacje`
 --
 ALTER TABLE `rezerwacje`
-  MODIFY `rezerwacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `rezerwacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `sale`

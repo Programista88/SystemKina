@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+
 $stmt = $db->prepare("
     UPDATE rezerwacje r 
     JOIN seanse s ON r.seans_id = s.seans_id 
@@ -30,6 +31,19 @@ $stmt = $db->prepare("
 $stmt->execute([$_SESSION['user_id']]);
 $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
+<?php
+require_once 'config.php';
+if (isset($_SESSION['message'])): ?>
+    <div class="message <?php echo $_SESSION['message_type']; ?>">
+        <?php
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+        unset($_SESSION['message_type']);
+        ?>
+    </div>
+<?php endif; ?>
+
 
 <!DOCTYPE html>
 <html lang="pl">

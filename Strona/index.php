@@ -33,13 +33,19 @@ require_once 'config.php'; ?>
         <nav>
             <ul>
                 <li><a href="index.php">Strona główna</a></li>
-                <li><a href="rezerwacje.php">Moje Rezerwacje</a></li>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <li><a href="konto.php">Konto</a></li>
+                <?php if (isset($_SESSION['pracownik_id'])): ?>
+                    <li><a href="panel_pracownika.php">Panel Pracownika</a></li>
+                    <li><a href="konto_pracownika.php">Konto (Pracownik)</a></li>
                     <li><a href="wylogowanie.php" class="logout-btn">Wyloguj</a></li>
                 <?php else: ?>
-                    <li><a href="login.php">Logowanie</a></li>
-                    <li><a href="rejestracja.php">Rejestracja</a></li>
+                    <li><a href="rezerwacje.php">Moje Rezerwacje</a></li>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <li><a href="konto.php">Konto</a></li>
+                        <li><a href="wylogowanie.php" class="logout-btn">Wyloguj</a></li>
+                    <?php else: ?>
+                        <li><a href="login.php">Logowanie</a></li>
+                        <li><a href="rejestracja.php">Rejestracja</a></li>
+                    <?php endif; ?>
                 <?php endif; ?>
             </ul>
         </nav>
@@ -55,15 +61,19 @@ require_once 'config.php'; ?>
                 echo '<img src="zdjecia/filmy/film_' . htmlspecialchars($film['film_id']) . '.jpg" alt="' . htmlspecialchars($film['tytul']) . '">';
                 echo '<h3>' . htmlspecialchars($film['tytul']) . '</h3>';
                 echo '<p>' . htmlspecialchars($film['opis']) . '</p>';
-                if (isset($_SESSION['user_id'])) {
-                    echo '<a href="proces_rezerw.php?film_id=' . $film['film_id'] . '" class="reserve-btn">Zarezerwuj bilet</a>';
+                if (isset($_SESSION['pracownik_id'])) {
+                    echo '<div class="employee-status">Jesteś zalogowany jako pracownik!</div>';
                 } else {
-                    echo '<a href="login.php" class="btn-login">Zaloguj się aby zarezerwować</a>';
-                }                echo '</div>';
+                    if (isset($_SESSION['user_id'])) {
+                        echo '<a href="proces_rezerw.php?film_id=' . $film['film_id'] . '" class="reserve-btn">Zarezerwuj bilet</a>';
+                    } else {
+                        echo '<a href="login.php" class="btn-login">Zaloguj się aby zarezerwować</a>';
+                    }
+                }
+                echo '</div>';
             }
             ?>
         </div>
-
     </main>
 
     <footer>
