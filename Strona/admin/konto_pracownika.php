@@ -17,14 +17,14 @@ $pracownik = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Konto Pracownika - Alekino</title>
-    <link rel="stylesheet" href="zasoby/css/style.css">
+    <link rel="stylesheet" href="../zasoby/css/style.css">
     <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="logo-container">
-            <img src="zdjecia/logo/logo.png" alt="Alekino Logo">
+            <img src="../zdjecia/logo/logo.png" alt="Alekino Logo">
             <h1>Alekino!</h1>
         </div>
         <nav>

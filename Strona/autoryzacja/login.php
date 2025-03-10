@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 Nie masz konta? <a href="rejestracja.php">Zarejestruj się</a>
             </div>
         </form>
-        <form id="employee-login" class="login-form" method="POST" action="admin/login_pracownik.php">
+        <form id="employee-login" class="login-form" method="POST" action="../admin/login_pracownik.php">
             <div class="form-group">
                 <label for="employee-email"><i class="fas fa-envelope"></i> Email służbowy</label>
                 <input type="email" id="employee-email" name="email" required>

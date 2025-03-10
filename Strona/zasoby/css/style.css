@@ -1205,5 +1205,117 @@ footer {
   margin-right: 5px;
 }
 
+.employee-list {
+  margin: 40px auto;
+  max-width: 1200px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.employee-list h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.employee-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.employee-list th, .employee-list td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.employee-list th {
+  background-color: #007bff;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.employee-list tr:hover {
+  background-color: #f1f1f1;
+}
+
+.employee-list td {
+  color: #333;
+  font-size: 14px;
+}
+
+.employee-list tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.employee-list tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-form .form-group {
+  margin-bottom: 20px;
+}
+
+.admin-form .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+}
+
+.admin-form .form-group input,
+.admin-form .form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.admin-form .form-group input:focus,
+.admin-form .form-group select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.admin-form button {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.admin-form button:hover {
+  background: #0056b3;
+}
+
+.admin-form .message {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.admin-form .message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.admin-form .message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
 
 
