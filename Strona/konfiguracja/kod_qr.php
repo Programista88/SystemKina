@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'config.php';
+require_once '../konfiguracja/config.php';
 
 if (!isset($_SESSION['user_id']) || !isset($_GET['id'])) {
-    header('Location: login.php');
+    header('Location: ../autoryzacja/login.php');
     exit();
 }
 
@@ -20,7 +20,7 @@ $stmt->execute([$_GET['id'], $_SESSION['user_id']]);
 $reservation = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$reservation) {
-    header('Location: rezerwacje.php');
+    header('Location: ../rezerwacje/rezerwacje.php');
     exit();
 }
 ?>
@@ -31,8 +31,8 @@ if (!$reservation) {
 <head>
     <meta charset="UTF-8">
     <title>Kod QR biletu - <?php echo htmlspecialchars($reservation['tytul']); ?></title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
+    <link rel="stylesheet" href="../zasoby/css/style.css">
+    <link rel="icon" type="images/png" sizes="64x64" href="../zdjecia/logo/logo.png">
 </head>
 
 <body class="qr-page">
@@ -54,7 +54,7 @@ if (!$reservation) {
                 "\nMiejsce: Rząd " . $reservation['numer_rzedu'] . ", Miejsce " . $reservation['numer_miejsca']);
             ?>" alt="Kod QR biletu">
         </div>
-        <a href="rezerwacje.php" class="return-btn">
+        <a href="../rezerwacje/rezerwacje.php" class="return-btn">
             <i class="fas fa-arrow-left"></i> Powrót do moich rezerwacji
         </a>
     </div>

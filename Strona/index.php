@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config.php'; ?>
+require_once 'konfiguracja/config.php'; ?>
 <?php if (isset($_SESSION['message'])): ?>
     <div class="message <?php echo $_SESSION['message_type']; ?>">
         <?php
@@ -18,7 +18,7 @@ require_once 'config.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kino - Rezerwacja Biletów - Filmy 3D</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="zasoby/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
 
@@ -34,17 +34,17 @@ require_once 'config.php'; ?>
             <ul>
                 <li><a href="index.php">Strona główna</a></li>
                 <?php if (isset($_SESSION['pracownik_id'])): ?>
-                    <li><a href="panel_pracownika.php">Panel Pracownika</a></li>
-                    <li><a href="konto_pracownika.php">Konto (Pracownik)</a></li>
-                    <li><a href="wylogowanie.php" class="logout-btn">Wyloguj</a></li>
+                    <li><a href="admin/panel_pracownika.php">Panel Pracownika</a></li>
+                    <li><a href="admin/konto_pracownika.php">Konto (Pracownik)</a></li>
+                    <li><a href="autoryzacja/logout.php" class="logout-btn">Wyloguj</a></li>
                 <?php else: ?>
-                    <li><a href="rezerwacje.php">Moje Rezerwacje</a></li>
+                    <li><a href="<?php echo isset($_SESSION['user_id']) ? 'rezerwacje/rezerwacje.php' : 'autoryzacja/login.php'; ?>">Moje Rezerwacje</a></li>
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <li><a href="konto.php">Konto</a></li>
-                        <li><a href="wylogowanie.php" class="logout-btn">Wyloguj</a></li>
+                        <li><a href="konto/konto.php">Konto</a></li>
+                        <li><a href="autoryzacja/logout.php" class="logout-btn">Wyloguj</a></li>
                     <?php else: ?>
-                        <li><a href="login.php">Logowanie</a></li>
-                        <li><a href="rejestracja.php">Rejestracja</a></li>
+                        <li><a href="autoryzacja/login.php">Logowanie</a></li>
+                        <li><a href="autoryzacja/rejestracja.php">Rejestracja</a></li>
                     <?php endif; ?>
                 <?php endif; ?>
             </ul>
@@ -65,9 +65,9 @@ require_once 'config.php'; ?>
                     echo '<div class="employee-status">Jesteś zalogowany jako pracownik!</div>';
                 } else {
                     if (isset($_SESSION['user_id'])) {
-                        echo '<a href="proces_rezerw.php?film_id=' . $film['film_id'] . '" class="reserve-btn">Zarezerwuj bilet</a>';
+                        echo '<a href="rezerwacje/proces_rezerw.php?film_id=' . $film['film_id'] . '" class="reserve-btn">Zarezerwuj bilet</a>';
                     } else {
-                        echo '<a href="login.php" class="btn-login">Zaloguj się aby zarezerwować</a>';
+                        echo '<a href="autoryzacja/login.php" class="btn-login">Zaloguj się aby zarezerwować</a>';
                     }
                 }
                 echo '</div>';
@@ -113,7 +113,7 @@ require_once 'config.php'; ?>
 
     </footer>
 
-    <script src="script.js"></script>
+    <script src="zasoby/js/script.js"></script>
 </body>
 
 </html>

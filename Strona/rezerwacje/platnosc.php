@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'config.php';
+require_once '../konfiguracja/config.php';
 
 if (!isset($_SESSION['user_id']) || !isset($_GET['rezerwacja_id'])) {
-    header('Location: login.php');
+    header('Location: ../autoryzacja/login.php');
     exit();
 }
 
@@ -78,8 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Płatność - Alekino</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
+    <link rel="stylesheet" href="../zasoby/css/style.css">
+    <link rel="icon" type="images/png" sizes="64x64" href="../zdjecia/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 

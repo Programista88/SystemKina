@@ -1,5 +1,5 @@
 function reserveTicket(filmId) {
-    window.location.href = `proces_rezerw.php?film_id=${filmId}`;
+    window.location.href = `../rezerwacje/proces_rezerw.php?film_id=${filmId}`;
 }
 
 function isUserLoggedIn() {
@@ -7,7 +7,7 @@ function isUserLoggedIn() {
 }
 
 function loadSeats(seansId) {
-    fetch(`get_siedzenia.php?seans_id=${seansId}`)
+    fetch(`../konfiguracja/get_siedzenia.php?seans_id=${seansId}`)
         .then(response => response.json())
         .then(data => {
             const seatMap = document.getElementById('seatMap');

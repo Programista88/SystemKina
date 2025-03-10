@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config.php';
+require_once '../konfiguracja/config.php';
 $film_id = $_GET['film_id'] ?? null;
 
 
@@ -20,14 +20,14 @@ $stmt->execute([$film_id]);
 $seanse = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: ../autoryzacja/login.php');
     exit();
 }
 
 $film_id = $_GET['film_id'] ?? null;
 
 if (!$film_id) {
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit();
 }
 
@@ -96,27 +96,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Rezerwacja biletu - <?php echo htmlspecialchars($film['tytul']); ?></title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../zasoby/css/style.css">
     <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
-    <script src="script.js"></script>
+    <script src="../zasoby/js/script.js"></script>
 </head>
 
 <body>
     <header>
         <div class="logo-container">
-            <img src="zdjecia/logo/logo.png" alt="Alekino Logo">
+            <img src="../zdjecia/logo/logo.png" alt="Alekino Logo">
             <h1>Alekino!</h1>
         </div>
         <nav>
             <ul>
-                <li><a href="index.php">Strona główna</a></li>
+                <li><a href="../index.php">Strona główna</a></li>
                 <li><a href="rezerwacje.php">Moje Rezerwacje</a></li>
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <li><a href="konto.php">Konto</a></li>
-                    <li><a href="wylogowanie.php" class="logout-btn">Wyloguj</a></li>
+                    <li><a href="../konto/konto.php">Konto</a></li>
+                    <li><a href="../autoryzacja/logout.php" class="logout-btn">Wyloguj</a></li>
                 <?php else: ?>
-                    <li><a href="login.php">Konto/Logowanie</a></li>
-                    <li><a href="rejestracja.php">Rejestracja</a></li>
+                    <li><a href="../autoryzacja/login.php">Konto/Logowanie</a></li>
+                    <li><a href="../autoryzacja/rejestracja.php">Rejestracja</a></li>
                 <?php endif; ?>
             </ul>
         </nav>

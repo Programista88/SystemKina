@@ -1,8 +1,6 @@
 <?php
 session_start();
-require_once 'config.php';
-
-// Only admin access
+require_once '../konfiguracja/config.php';
 if (!isset($_SESSION['pracownik_id']) || $_SESSION['pracownik_stanowisko'] !== 'admin') {
     header('Location: index.php');
     exit();

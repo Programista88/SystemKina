@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../konfiguracja/config.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_name'] = $user['imie'] . ' ' . $user['nazwisko'];
         $_SESSION['message'] = "Zalogowano pomyślnie!";
         $_SESSION['message_type'] = "success";
-        header('Location: konto.php');
+        header('Location: ../konto/konto.php');
         exit();
     } else {
         $_SESSION['message'] = "Nieprawidłowy email lub hasło";
@@ -31,20 +31,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logowanie - Alekino</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
+    <link rel="stylesheet" href="../zasoby/css/style.css">
+    <link rel="icon" type="images/png" sizes="64x64" href="../zdjecia/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
     <header>
         <div class="logo-container">
-            <img src="zdjecia/logo/logo.png" alt="Alekino Logo">
+            <img src="../zdjecia/logo/logo.png" alt="Alekino Logo">
             <h1>Alekino!</h1>
         </div>
         <nav>
             <ul>
-                <li><a href="index.php">Strona główna</a></li>
+                <li><a href="../index.php">Strona główna</a></li>
                 <li><a href="rejestracja.php">Rejestracja</a></li>
             </ul>
         </nav>
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 Nie masz konta? <a href="rejestracja.php">Zarejestruj się</a>
             </div>
         </form>
-        <form id="employee-login" class="login-form" method="POST" action="login_pracownik.php">
+        <form id="employee-login" class="login-form" method="POST" action="admin/login_pracownik.php">
             <div class="form-group">
                 <label for="employee-email"><i class="fas fa-envelope"></i> Email służbowy</label>
                 <input type="email" id="employee-email" name="email" required>

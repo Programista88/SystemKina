@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config.php';
+require_once '../konfiguracja/config.php';
 
 if (!isset($_SESSION['pracownik_id'])) {
     header('Location: login.php');
@@ -17,7 +17,7 @@ $pracownik = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Konto Pracownika - Alekino</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="zasoby/css/style.css">
     <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -32,7 +32,7 @@ $pracownik = $stmt->fetch(PDO::FETCH_ASSOC);
                 <li><a href="index.php">Strona główna</a></li>
                 <li><a href="panel_pracownika.php">Panel Pracownika</a></li>
                 <li><a href="konto_pracownika.php">Konto (Pracownik)</a></li>
-                <li><a href="wylogowanie.php" class="logout-btn">Wyloguj</a></li>
+                <li><a href="autoryzacja/logout.php" class="logout-btn">Wyloguj</a></li>
             </ul>
         </nav>
     </header>

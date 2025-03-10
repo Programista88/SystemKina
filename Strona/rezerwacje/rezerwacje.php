@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config.php';
+require_once '../konfiguracja/config.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
@@ -33,7 +33,7 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php
-require_once 'config.php';
+require_once '../konfiguracja/config.php';
 if (isset($_SESSION['message'])): ?>
     <div class="message <?php echo $_SESSION['message_type']; ?>">
         <?php
@@ -51,26 +51,26 @@ if (isset($_SESSION['message'])): ?>
 <head>
     <meta charset="UTF-8">
     <title>Moje Rezerwacje - Alekino</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../zasoby/css/style.css">
     <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
 </head>
 
 <body>
     <header>
         <div class="logo-container">
-            <img src="zdjecia/logo/logo.png" alt="Alekino Logo">
+            <img src="../zdjecia/logo/logo.png" alt="Alekino Logo">
             <h1>Alekino!</h1>
         </div>
         <nav>
             <ul>
-                <li><a href="index.php">Strona główna</a></li>
-                <li><a href="rezerwacje.php">Moje Rezerwacje</a></li>
+                <li><a href="../index.php">Strona główna</a></li>
+                <li><a href="../rezerwacje/rezerwacje.php">Moje Rezerwacje</a></li>
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <li><a href="konto.php">Konto</a></li>
-                    <li><a href="wylogowanie.php" class="logout-btn">Wyloguj</a></li>
+                    <li><a href="../konto/konto.php">Konto</a></li>
+                    <li><a href="../autoryzacja/logout.php" class="logout-btn">Wyloguj</a></li>
                 <?php else: ?>
-                    <li><a href="login.php">Konto/Logowanie</a></li>
-                    <li><a href="rejestracja.php">Rejestracja</a></li>
+                    <li><a href="../autoryzacja/login.php">Konto/Logowanie</a></li>
+                    <li><a href="../autoryzacja/rejestracja.php">Rejestracja</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
@@ -111,13 +111,13 @@ if (isset($_SESSION['message'])): ?>
                         </p>
 
                         <?php if ($reservation['status'] === 'aktywna'): ?>
-                            <a href="kod_qr.php?id=<?php echo $reservation['rezerwacja_id']; ?>" class="qr-btn">
+                            <a href="../konfiguracja/kod_qr.php?id=<?php echo $reservation['rezerwacja_id']; ?>" class="qr-btn">
                                 <i class="fas fa-qrcode"></i> Pokaż kod QR
                             </a>
                         <?php endif; ?>
 
                         <?php if ($reservation['status'] !== 'anulowana' && $reservation['status'] !== 'zakonczona'): ?>
-                            <a href="anuluj_rezerwacje.php?id=<?php echo $reservation['rezerwacja_id']; ?>" class="cancel-btn"
+                            <a href="../rezerwacje/anuluj_rezerwacje.php?id=<?php echo $reservation['rezerwacja_id']; ?>" class="cancel-btn"
                                 onclick="return confirm('Czy na pewno chcesz anulować tę rezerwację?')">
                                 Anuluj rezerwację
                             </a>

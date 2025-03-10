@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../konfiguracja/config.php';
 
 $email = 'admin@alekino.pl';
 $password = 'admin123';
@@ -17,3 +17,4 @@ echo "Sukces";
 
 LOGIN: admin@alekino.pl
 HASŁO: admin123
+Wymagane!

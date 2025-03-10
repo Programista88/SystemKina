@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../konfiguracja/config.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([$imie, $nazwisko, $email, $telefon, $hashed_password]);
                 $_SESSION['message'] = "Rejestracja przebiegła pomyślnie!";
                 $_SESSION['message_type'] = "success";
-                header('Location: login.php');
+                header('Location: ../autoryzacja/login.php');
                 exit();
             } catch (PDOException $e) {
                 $error = "Błąd podczas rejestracji";
@@ -54,21 +54,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rejestracja - Alekino</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
+    <link rel="stylesheet" href="../zasoby/css/style.css">
+    <link rel="icon" type="images/png" sizes="64x64" href="../zdjecia/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
     <header>
         <div class="logo-container">
-            <img src="zdjecia/logo/logo.png" alt="Alekino Logo">
+            <img src="../zdjecia/logo/logo.png" alt="Alekino Logo">
             <h1>Alekino!</h1>
         </div>
         <nav>
             <ul>
-                <li><a href="index.php">Strona główna</a></li>
-                <li><a href="login.php">Logowanie</a></li>
+                <li><a href="../index.php">Strona główna</a></li>
+                <li><a href="../autoryzacja/login.php">Logowanie</a></li>
             </ul>
         </nav>
     </header>
@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
 
             <div class="login-link">
-                Masz już konto? <a href="login.php">Zaloguj się</a>
+                Masz już konto? <a href="../autoryzacja/login.php">Zaloguj się</a>
             </div>
         </form>
     </main>

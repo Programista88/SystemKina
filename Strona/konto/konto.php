@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'config.php';
+require_once '../konfiguracja/config.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: ../autoryzacja/login.php');
     exit();
 }
 
@@ -28,20 +28,20 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moje Konto - Alekino</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
+    <link rel="stylesheet" href="../zasoby/css/style.css">
+    <link rel="icon" type="images/png" sizes="64x64" href="../zdjecia/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="logo-container">
-            <img src="zdjecia/logo/logo.png" alt="Alekino Logo">
+            <img src="../zdjecia/logo/logo.png" alt="Alekino Logo">
             <h1>Alekino!</h1>
         </div>
         <nav>
             <ul>
-                <li><a href="index.php">Strona główna</a></li>
-                <li><a href="wylogowanie.php" class="logout-btn">Wyloguj</a></li>
+                <li><a href="../index.php">Strona główna</a></li>
+                <li><a href="../autoryzacja/logout.php" class="logout-btn">Wyloguj</a></li>
             </ul>
         </nav>
     </header>
