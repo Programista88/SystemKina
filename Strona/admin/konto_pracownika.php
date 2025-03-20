@@ -14,6 +14,7 @@ $pracownik = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <title>Konto Pracownika - Alekino</title>
@@ -21,6 +22,7 @@ $pracownik = $stmt->fetch(PDO::FETCH_ASSOC);
     <link rel="icon" type="images/png" sizes="64x64" href="zdjecia/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+
 <body>
     <header>
         <div class="logo-container">
@@ -29,61 +31,74 @@ $pracownik = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
         <nav>
             <ul>
-                <li><a href="index.php">Strona główna</a></li>
+                <li><a href="../index.php">Strona główna</a></li>
                 <li><a href="panel_pracownika.php">Panel Pracownika</a></li>
                 <li><a href="konto_pracownika.php">Konto (Pracownik)</a></li>
-                <li><a href="autoryzacja/logout.php" class="logout-btn">Wyloguj</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="account-container">
-        <div class="account-header">
-            <i class="fas fa-user-circle profile-icon"></i>
+    <main class="employee-account-container">
+        <div class="employee-account-header">
+            <i class="fas fa-user-tie"></i>
             <h2>Konto Pracownika</h2>
+            <p>Witaj, <?php echo $pracownik['imie'] . ' ' . $pracownik['nazwisko']; ?></p>
+            <span class="employee-role-badge <?php echo strtolower($pracownik['stanowisko']); ?>">
+                <?php echo ucfirst($pracownik['stanowisko']); ?>
+            </span>
         </div>
 
-        <div class="user-data-container">
-            <div class="data-box">
-                <div class="data-icon">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="data-content">
-                    <h3>Imię i Nazwisko</h3>
-                    <p><?php echo htmlspecialchars($pracownik['imie'] . ' ' . $pracownik['nazwisko']); ?></p>
-                </div>
-            </div>
-
-            <div class="data-box">
-                <div class="data-icon">
+        <div class="employee-data-container">
+            <div class="employee-data-box">
+                <div class="employee-data-icon">
                     <i class="fas fa-envelope"></i>
                 </div>
-                <div class="data-content">
+                <div class="employee-data-content">
                     <h3>Email</h3>
-                    <p><?php echo htmlspecialchars($pracownik['email']); ?></p>
+                    <p><?php echo $pracownik['email']; ?></p>
                 </div>
             </div>
 
-            <div class="data-box">
-                <div class="data-icon">
-                    <i class="fas fa-briefcase"></i>
+            <div class="employee-data-box">
+                <div class="employee-data-icon">
+                    <i class="fas fa-phone"></i>
                 </div>
-                <div class="data-content">
+                <div class="employee-data-content">
+                    <h3>Telefon</h3>
+                    <p><?php echo $pracownik['telefon'] ?? 'Nie podano'; ?></p>
+                </div>
+            </div>
+
+            <div class="employee-data-box">
+                <div class="employee-data-icon">
+                    <i class="fas fa-id-badge"></i>
+                </div>
+                <div class="employee-data-content">
                     <h3>Stanowisko</h3>
-                    <p><?php echo htmlspecialchars($pracownik['stanowisko']); ?></p>
+                    <p><?php echo ucfirst($pracownik['stanowisko']); ?></p>
                 </div>
             </div>
 
-            <div class="data-box">
-                <div class="data-icon">
+            <div class="employee-data-box">
+                <div class="employee-data-icon">
                     <i class="fas fa-calendar-alt"></i>
                 </div>
-                <div class="data-content">
+                <div class="employee-data-content">
                     <h3>Data Zatrudnienia</h3>
                     <p><?php echo date('d.m.Y', strtotime($pracownik['data_zatrudnienia'])); ?></p>
                 </div>
             </div>
         </div>
+
+        <div class="employee-account-actions">
+            <a href="panel_pracownika.php" class="employee-action-btn primary">
+                <i class="fas fa-tachometer-alt"></i> Panel Pracownika
+            </a>
+            <a href="../autoryzacja/logout.php" class="employee-action-btn secondary">
+                <i class="fas fa-sign-out-alt"></i> Wyloguj się
+            </a>
+        </div>
     </main>
 </body>
+
 </html>

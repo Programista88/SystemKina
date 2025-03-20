@@ -7,16 +7,14 @@ if (!isset($_SESSION['pracownik_id']) || $_SESSION['pracownik_stanowisko'] !== '
     exit();
 }
 
-
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
 function getEmployees($conn) {
     try {
-        $sql = "SELECT pracownik_id, imie, nazwisko, email, stanowisko FROM pracownicy ORDER BY pracownik_id";
+        $sql = "SELECT pracownik_id, imie, nazwisko, email, telefon, stanowisko FROM pracownicy ORDER BY pracownik_id";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -89,6 +87,7 @@ $employees = getEmployees($conn);
                         <th>Imię</th>
                         <th>Nazwisko</th>
                         <th>Email</th>
+                        <th>Telefon</th>
                         <th>Stanowisko</th>
                     </tr>
                 </thead>
@@ -99,8 +98,8 @@ $employees = getEmployees($conn);
                             <td><?php echo $employee['imie']; ?></td>
                             <td><?php echo $employee['nazwisko']; ?></td>
                             <td><?php echo $employee['email']; ?></td>
+                            <td><?php echo $employee['telefon']; ?></td>
                             <td><?php echo $employee['stanowisko']; ?></td>
-                           
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
