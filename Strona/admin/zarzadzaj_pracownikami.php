@@ -12,7 +12,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-function getEmployees($conn) {
+function getEmployees($conn)
+{
     try {
         $sql = "SELECT pracownik_id, imie, nazwisko, email, telefon, stanowisko FROM pracownicy ORDER BY pracownik_id";
         $stmt = $conn->prepare($sql);
@@ -79,7 +80,7 @@ $employees = getEmployees($conn);
         </div>
 
         <div class="employee-list">
-            <h2>Lista Pracowników</h2>
+            <h2><i class="fas fa-users"></i> Lista Pracowników</h2>
             <table>
                 <thead>
                     <tr>
@@ -98,8 +99,12 @@ $employees = getEmployees($conn);
                             <td><?php echo $employee['imie']; ?></td>
                             <td><?php echo $employee['nazwisko']; ?></td>
                             <td><?php echo $employee['email']; ?></td>
-                            <td><?php echo $employee['telefon']; ?></td>
-                            <td><?php echo $employee['stanowisko']; ?></td>
+                            <td><?php echo !empty($employee['telefon']) ? $employee['telefon'] : 'Brak'; ?></td>
+                            <td>
+                                <span class="role-badge <?php echo $employee['stanowisko']; ?>">
+                                    <?php echo ucfirst($employee['stanowisko']); ?>
+                                </span>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

@@ -3,10 +3,25 @@ session_start();
 require_once '../konfiguracja/config.php';
 
 if (!isset($_SESSION['pracownik_id'])) {
-    header('Location: ../index.php');
+    header('Location: ../autoryzacja/login.php');
     exit();
 }
+
+if (isset($_SESSION['message'])): ?>
+    <div class="message <?php echo $_SESSION['message_type']; ?>">
+        <?php
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+        unset($_SESSION['message_type']);
+        ?>
+    </div>
+<?php endif;
+
 ?>
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -17,7 +32,6 @@ if (!isset($_SESSION['pracownik_id'])) {
     <link rel="stylesheet" href="../zasoby/css/style.css">
     <link rel="icon" type="images/png" sizes="64x64" href="../zdjecia/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
 
 <body>
     <header>
@@ -59,11 +73,14 @@ if (!isset($_SESSION['pracownik_id'])) {
                 <p>Przeglądaj wszystkie rezerwacje</p>
             </a>
 
-            <a href="raporty.php" class="admin-tile">
-                <i class="fas fa-chart-bar"></i>
-                <h3>Raporty</h3>
-                <p>Generuj raporty sprzedaży</p>
-            </a>
+            <?php if ($_SESSION['pracownik_stanowisko'] === 'admin' || $_SESSION['pracownik_stanowisko'] === 'kierownik'): ?>
+                <a href="raporty.php" class="admin-tile">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Raporty</h3>
+                    <p>Generuj raporty sprzedaży</p>
+                </a>
+            <?php endif; ?>
+
             <?php if ($_SESSION['pracownik_stanowisko'] === 'admin'): ?>
                 <a href="zarzadzaj_pracownikami.php" class="admin-tile">
                     <i class="fas fa-users-cog"></i>
@@ -71,6 +88,7 @@ if (!isset($_SESSION['pracownik_id'])) {
                     <p>Zatrudniaj i zwalniaj pracowników</p>
                 </a>
             <?php endif; ?>
+
         </div>
     </main>
 </body>

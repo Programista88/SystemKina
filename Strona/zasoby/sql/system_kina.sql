@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2025 at 08:08 PM
+-- Generation Time: Apr 08, 2025 at 06:52 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -78,7 +78,9 @@ CREATE TABLE `klienci` (
 INSERT INTO `klienci` (`klient_id`, `imie`, `nazwisko`, `email`, `telefon`, `data_rejestracji`, `haslo`) VALUES
 (9, 'Jan', 'Brzechwa', 'jdciwpape@wp.pl', '923923929', '2025-03-08 21:10:34', '$2y$10$0bipkm.zc5AZAkJBkNqbjuCpeyoe5sBZy9mfRsOV8U2epJVHTgz0a'),
 (10, 'Jan', 'Kowalski', 'johhnygraham497@gmail.com', '923923923', '2025-03-08 22:05:39', '$2y$10$p7vDSxIdWELH8aXZkTWRNO7RKaet0HQ6gSrTs4OS5g1t7OyxqnRIu'),
-(11, 'Amelka', 'Lala', 'lalaal@gmail.com', '923923929', '2025-03-08 23:51:26', '$2y$10$agJf7pyo1HR3Gl5lt/e/N.kdw9LxWIcu.Xf6lgieUtflGvhz1Dj4u');
+(11, 'Amelka', 'Lala', 'lalaal@gmail.com', '923923929', '2025-03-08 23:51:26', '$2y$10$agJf7pyo1HR3Gl5lt/e/N.kdw9LxWIcu.Xf6lgieUtflGvhz1Dj4u'),
+(12, 'Krystian', 'Cwel', 'jebacdisa@gmail.com', '923923929', '2025-03-09 23:45:13', '$2y$10$g.i16maorpoLr21FQAqHAe/6ep3q2SvsLdQ3OBaWeWX8PPcxGZu3e'),
+(13, 'la', 'la', 'l@l', '923923929', '2025-03-19 20:05:34', '$2y$10$2KgatvNRcdVVxogIS36WtOekp2wVLOwNGjJIq6RDoPK.L/o6CkrTG');
 
 -- --------------------------------------------------------
 
@@ -286,7 +288,13 @@ INSERT INTO `platnosci` (`platnosc_id`, `rezerwacja_id`, `kwota`, `data_platnosc
 (16, 38, 25.00, '2025-03-09 15:29:48', 'karta'),
 (17, 41, 34.99, '2025-03-09 15:46:37', 'karta'),
 (18, 42, 25.00, '2025-03-09 15:48:01', 'blik'),
-(19, 43, 25.00, '2025-03-09 19:37:05', 'blik');
+(19, 43, 25.00, '2025-03-09 19:37:05', 'blik'),
+(20, 44, 34.99, '2025-03-09 23:46:28', 'karta'),
+(21, 45, 28.99, '2025-03-09 23:47:18', 'blik'),
+(22, 46, 34.99, '2025-03-10 14:06:51', 'karta'),
+(23, 47, 32.99, '2025-03-10 14:07:11', 'blik'),
+(24, 48, 25.00, '2025-03-19 20:20:39', 'blik'),
+(25, 49, 25.00, '2025-03-20 21:17:38', 'blik');
 
 -- --------------------------------------------------------
 
@@ -299,6 +307,7 @@ CREATE TABLE `pracownicy` (
   `imie` varchar(50) NOT NULL,
   `nazwisko` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `telefon` varchar(15) DEFAULT NULL,
   `haslo` varchar(255) NOT NULL,
   `stanowisko` enum('admin','kierownik','pracownik') NOT NULL,
   `data_zatrudnienia` datetime DEFAULT current_timestamp()
@@ -308,8 +317,10 @@ CREATE TABLE `pracownicy` (
 -- Dumping data for table `pracownicy`
 --
 
-INSERT INTO `pracownicy` (`pracownik_id`, `imie`, `nazwisko`, `email`, `haslo`, `stanowisko`, `data_zatrudnienia`) VALUES
-(9, 'Admin', 'System', 'admin@alekino.pl', '$2y$10$smWhciRsCQK2GigZYqPfieW1z1m.7FIdIMb3uSbskYpJ/.GwTZRtK', 'admin', '2025-03-09 18:55:36');
+INSERT INTO `pracownicy` (`pracownik_id`, `imie`, `nazwisko`, `email`, `telefon`, `haslo`, `stanowisko`, `data_zatrudnienia`) VALUES
+(9, 'Admin', 'System', 'admin@alekino.pl', '923923929', '$2y$10$smWhciRsCQK2GigZYqPfieW1z1m.7FIdIMb3uSbskYpJ/.GwTZRtK', 'admin', '2025-03-09 18:55:36'),
+(15, 'Jan', 'Brzechwa', 'johhnygraham497@gmail.com', '923923929', '$2y$10$ekh0Z8r9ffakkrObkOevye.mY5OzP3hnQ/eSF/JXcoAVuKZRqCTri', 'kierownik', '2025-04-08 18:15:40'),
+(16, 'Jan', 'Berek', 'jdciwpape@wp.pl', '923923929', '$2y$10$bnhkPkbHFYVwmp4kB8WzO.HuGHYAReggGFI0Fp/9JUbwJUVozyVzm', 'pracownik', '2025-04-08 18:16:16');
 
 -- --------------------------------------------------------
 
@@ -360,7 +371,13 @@ INSERT INTO `rezerwacje` (`rezerwacja_id`, `klient_id`, `seans_id`, `miejsce_id`
 (40, 11, 13, 31, '2025-03-09 15:45:32', 'aktywna', NULL),
 (41, 11, 10, 149, '2025-03-09 15:46:32', 'anulowana', '2025-03-09 15:46:37'),
 (42, 11, 13, 39, '2025-03-09 15:47:59', 'aktywna', '2025-03-09 15:48:01'),
-(43, 11, 13, 38, '2025-03-09 19:37:02', 'aktywna', '2025-03-09 19:37:05');
+(43, 11, 13, 38, '2025-03-09 19:37:02', 'aktywna', '2025-03-09 19:37:05'),
+(44, 12, 10, 149, '2025-03-09 23:46:04', 'anulowana', '2025-03-09 23:46:28'),
+(45, 12, 5, 79, '2025-03-09 23:47:14', 'anulowana', '2025-03-09 23:47:18'),
+(46, 12, 10, 149, '2025-03-10 14:06:43', 'anulowana', '2025-03-10 14:06:51'),
+(47, 12, 1, 40, '2025-03-10 14:07:08', 'zakonczona', '2025-03-10 14:07:11'),
+(48, 13, 13, 30, '2025-03-19 20:20:27', 'aktywna', '2025-03-19 20:20:39'),
+(49, 13, 13, 22, '2025-03-20 21:17:29', 'aktywna', '2025-03-20 21:17:38');
 
 -- --------------------------------------------------------
 
@@ -492,7 +509,7 @@ ALTER TABLE `filmy`
 -- AUTO_INCREMENT for table `klienci`
 --
 ALTER TABLE `klienci`
-  MODIFY `klient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `klient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `miejsca`
@@ -504,19 +521,19 @@ ALTER TABLE `miejsca`
 -- AUTO_INCREMENT for table `platnosci`
 --
 ALTER TABLE `platnosci`
-  MODIFY `platnosc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `platnosc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `pracownicy`
 --
 ALTER TABLE `pracownicy`
-  MODIFY `pracownik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `pracownik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `rezerwacje`
 --
 ALTER TABLE `rezerwacje`
-  MODIFY `rezerwacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `rezerwacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `sale`

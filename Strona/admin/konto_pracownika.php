@@ -91,9 +91,6 @@ $pracownik = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
 
         <div class="employee-account-actions">
-            <a href="panel_pracownika.php" class="employee-action-btn primary">
-                <i class="fas fa-tachometer-alt"></i> Panel Pracownika
-            </a>
             <a href="../autoryzacja/logout.php" class="employee-action-btn secondary">
                 <i class="fas fa-sign-out-alt"></i> Wyloguj się
             </a>

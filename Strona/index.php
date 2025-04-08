@@ -67,7 +67,7 @@ require_once 'konfiguracja/config.php'; ?>
                     if (isset($_SESSION['user_id'])) {
                         echo '<a href="rezerwacje/proces_rezerw.php?film_id=' . $film['film_id'] . '" class="reserve-btn">Zarezerwuj bilet</a>';
                     } else {
-                        echo '<a href="autoryzacja/login.php" class="btn-login">Zaloguj się aby zarezerwować</a>';
+                        echo '<a href="autoryzacja/login.php" class="reserve-btn">Zaloguj się aby zarezerwować</a>';
                     }
                 }
                 echo '</div>';

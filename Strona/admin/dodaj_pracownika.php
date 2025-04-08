@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imie = trim($_POST['imie']);
     $nazwisko = trim($_POST['nazwisko']);
     $email = trim($_POST['email']);
+    $telefon = isset($_POST['telefon']) ? $_POST['telefon'] : '';
     $haslo = trim($_POST['haslo']);
     $stanowisko = $_POST['stanowisko'];
 
@@ -44,11 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $hashedPassword = password_hash($haslo, PASSWORD_DEFAULT);
 
-
+            
             $stmt = $db->prepare("INSERT INTO pracownicy (imie, nazwisko, email, telefon, haslo, stanowisko) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$imie, $nazwisko, $email, $telefon, $haslo_hash, $stanowisko]);
-
-            if ($stmt->execute()) {
+            if ($stmt->execute([$imie, $nazwisko, $email, $telefon, $hashedPassword, $stanowisko])) {
                 $message = 'Pracownik został pomyślnie dodany!';
                 $messageType = 'success';
 
@@ -58,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $message = 'Wystąpił błąd podczas dodawania pracownika: ' . $conn->error;
                 $messageType = 'error';
             }
+
         }
     }
 }
@@ -145,12 +145,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <button type="submit"><i class="fas fa-plus-circle"></i> Dodaj Pracownika</button>
             </form>
-
-            <div style="margin-top: 20px; text-align: center;">
-                <a href="zarzadzaj_pracownikami.php" class="return-btn">
-                    <i class="fas fa-arrow-left"></i> Powrót do zarządzania pracownikami
-                </a>
-            </div>
         </div>
     </main>
 

@@ -30,7 +30,7 @@ if ($result && $result->num_rows > 0) {
 // Obsługa usuwania pracownika
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usun_pracownika'])) {
     $pracownik_id = $_POST['pracownik_id'];
-    
+
     // Sprawdzenie czy pracownik nie usuwa sam siebie
     if ($pracownik_id == $_SESSION['pracownik_id']) {
         $message = 'Nie możesz usunąć swojego własnego konta!';
@@ -39,15 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usun_pracownika'])) {
         // Usuwanie pracownika
         $stmt = $conn->prepare("DELETE FROM pracownicy WHERE pracownik_id = ?");
         $stmt->bind_param("i", $pracownik_id);
-        
+
         if ($stmt->execute()) {
             $message = 'Pracownik został pomyślnie usunięty!';
             $messageType = 'success';
-            
+
             // Odświeżenie listy pracowników
             $result = $conn->query("SELECT pracownik_id, imie, nazwisko, email, stanowisko FROM pracownicy ORDER BY nazwisko, imie");
             $pracownicy = [];
-            
+
             if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $pracownicy[] = $row;
@@ -63,13 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usun_pracownika'])) {
 // Obsługa potwierdzenia usunięcia pracownika
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['potwierdz_usuniecie'])) {
     $pracownik_id = $_POST['pracownik_id'];
-    
+
     // Pobieranie danych pracownika do potwierdzenia
     $stmt = $conn->prepare("SELECT pracownik_id, imie, nazwisko, email, stanowisko FROM pracownicy WHERE pracownik_id = ?");
     $stmt->bind_param("i", $pracownik_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($result && $result->num_rows > 0) {
         $pracownik_do_usuniecia = $result->fetch_assoc();
     } else {
@@ -110,24 +110,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['potwierdz_usuniecie']
 
     <main class="admin-panel">
         <h1>Usuń Pracownika</h1>
-        
+
         <?php if (!empty($message)): ?>
             <div class="message <?php echo $messageType; ?>">
                 <?php echo $message; ?>
             </div>
         <?php endif; ?>
-        
-        <div class="admin-form">
+
+        <div class="admin-form" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef); max-width: 95%;">
             <?php if (isset($pracownik_do_usuniecia)): ?>
-                <!-- Potwierdzenie usunięcia pracownika -->
                 <div class="account-container">
                     <div class="account-header">
                         <i class="fas fa-exclamation-triangle profile-icon" style="color: #dc3545;"></i>
                         <h2>Potwierdzenie usunięcia</h2>
                     </div>
-                    
+
                     <p>Czy na pewno chcesz usunąć tego pracownika? Ta operacja jest nieodwracalna.</p>
-                    
+
                     <div class="user-data-container">
                         <div class="data-box">
                             <div class="data-icon">
@@ -138,17 +137,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['potwierdz_usuniecie']
                                 <p><?php echo $pracownik_do_usuniecia['pracownik_id']; ?></p>
                             </div>
                         </div>
-                        
+
                         <div class="data-box">
                             <div class="data-icon">
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="data-content">
                                 <h3>Imię i nazwisko</h3>
-                                <p><?php echo htmlspecialchars($pracownik_do_usuniecia['imie'] . ' ' . $pracownik_do_usuniecia['nazwisko']); ?></p>
+                                <p><?php echo htmlspecialchars($pracownik_do_usuniecia['imie'] . ' ' . $pracownik_do_usuniecia['nazwisko']); ?>
+                                </p>
                             </div>
                         </div>
-                        
+
                         <div class="data-box">
                             <div class="data-icon">
                                 <i class="fas fa-envelope"></i>
@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['potwierdz_usuniecie']
                                 <p><?php echo htmlspecialchars($pracownik_do_usuniecia['email']); ?></p>
                             </div>
                         </div>
-                        
+
                         <div class="data-box">
                             <div class="data-icon">
                                 <i class="fas fa-briefcase"></i>
@@ -169,25 +169,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['potwierdz_usuniecie']
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="account-actions">
                         <form method="POST" action="">
-                            <input type="hidden" name="pracownik_id" value="<?php echo $pracownik_do_usuniecia['pracownik_id']; ?>">
+                            <input type="hidden" name="pracownik_id"
+                                value="<?php echo $pracownik_do_usuniecia['pracownik_id']; ?>">
                             <button type="submit" name="usun_pracownika" class="cancel-btn">
                                 <i class="fas fa-trash-alt"></i> Tak, usuń pracownika
                             </button>
                         </form>
-                        
+
                         <a href="usun_pracownika.php" class="return-btn">
                             <i class="fas fa-times"></i> Anuluj
                         </a>
                     </div>
                 </div>
             <?php else: ?>
-                <!-- Lista pracowników do usunięcia -->
                 <div class="employee-list">
                     <h2>Wybierz pracownika do usunięcia</h2>
-                    
+
                     <?php if (empty($pracownicy)): ?>
                         <p>Brak pracowników w systemie.</p>
                     <?php else: ?>
@@ -208,23 +208,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['potwierdz_usuniecie']
                                         <td><?php echo htmlspecialchars($pracownik['imie'] . ' ' . $pracownik['nazwisko']); ?></td>
                                         <td><?php echo htmlspecialchars($pracownik['email']); ?></td>
                                         <td>
-                                            <?php 
-                                                switch($pracownik['stanowisko']) {
-                                                    case 'admin':
-                                                        echo '<span style="color: #dc3545;"><i class="fas fa-user-shield"></i> Administrator</span>';
-                                                        break;
-                                                    case 'kierownik':
-                                                        echo '<span style="color: #fd7e14;"><i class="fas fa-user-tie"></i> Kierownik</span>';
-                                                        break;
-                                                    default:
-                                                        echo '<span style="color: #28a745;"><i class="fas fa-user"></i> Pracownik</span>';
-                                                }
+                                            <?php
+                                            switch ($pracownik['stanowisko']) {
+                                                case 'admin':
+                                                    echo '<span style="color: #dc3545;"><i class="fas fa-user-shield"></i> Administrator</span>';
+                                                    break;
+                                                case 'kierownik':
+                                                    echo '<span style="color: #fd7e14;"><i class="fas fa-user-tie"></i> Kierownik</span>';
+                                                    break;
+                                                default:
+                                                    echo '<span style="color: #28a745;"><i class="fas fa-user"></i> Pracownik</span>';
+                                            }
                                             ?>
                                         </td>
                                         <td>
                                             <?php if ($pracownik['pracownik_id'] != $_SESSION['pracownik_id']): ?>
                                                 <form method="POST" action="">
-                                                    <input type="hidden" name="pracownik_id" value="<?php echo $pracownik['pracownik_id']; ?>">
+                                                    <input type="hidden" name="pracownik_id"
+                                                        value="<?php echo $pracownik['pracownik_id']; ?>">
                                                     <button type="submit" name="potwierdz_usuniecie" class="cancel-btn">
                                                         <i class="fas fa-trash-alt"></i> Usuń
                                                     </button>
@@ -242,14 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['potwierdz_usuniecie']
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
-            
-            <div style="margin-top: 20px; text-align: center;">
-                <a href="zarzadzaj_pracownikami.php" class="return-btn">
-                    <i class="fas fa-arrow-left"></i> Powrót do zarządzania pracownikami
-                </a>
-            </div>
         </div>
     </main>
 </body>
-
 </html>
